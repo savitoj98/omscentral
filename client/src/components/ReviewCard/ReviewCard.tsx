@@ -113,7 +113,7 @@ const ReviewCard: React.FC<Props> = ({
       />
       <CardContent className={classes.content} data-cy="review_card:content">
         {body ? (
-          <Markdown source={applyHighlighting(body, highlight)} />
+          <Markdown>{applyHighlighting(body, highlight)}</Markdown>
         ) : (
           <Typography variant="body2" color="textSecondary" component="p">
             No commentary provided.
