@@ -3,9 +3,14 @@ export interface PostgresConfig {
 }
 
 export const config: PostgresConfig = {
-  connection: process.env.OMSCENTRAL_POSTGRES_CONNECTION || '',
+  connection:
+    process.env.OMSCENTRAL_POSTGRES_CONNECTION ||
+    process.env.DATABASE_URL ||
+    '',
 };
 
 if (!config.connection) {
-  throw new Error('process.env.OMSCENTRAL_POSTGRES_CONNECTION required');
+  throw new Error(
+    'process.env.OMSCENTRAL_POSTGRES_CONNECTION || process.env.DATABASE_URL required',
+  );
 }
