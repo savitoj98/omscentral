@@ -14,7 +14,12 @@ pg.types.setTypeParser(1700, parseFloat);
 const config: Config = {
   client: 'pg',
   debug: Boolean(argv.debug),
-  connection: postgresConfig.connection,
+  connection: {
+    connectionString: postgresConfig.connection,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   migrations: {
     directory: path.join(__dirname, 'migrations'),
     tableName: Migration.tableName,
