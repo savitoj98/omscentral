@@ -25,7 +25,5 @@ export const middleware = (): RequestHandler =>
 
     logger.debug('middleware(cors):', { headers });
 
-    return cb(new Error(`CORS [origin=${headers.origin || ''}]`), {
-      origin: false,
-    });
+    return cb(new Error('CORS'), { origin: false });
   });
