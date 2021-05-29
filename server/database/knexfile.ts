@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 
-require('../src/env')(argv.env ? `.env.${argv.env}` : '.env');
+require('../src/env')(argv['env'] ? `.env.${argv['env']}` : '.env');
 
 import { Config } from 'knex';
 import path from 'path';
@@ -13,7 +13,7 @@ pg.types.setTypeParser(1700, parseFloat);
 
 const config: Config = {
   client: 'pg',
-  debug: Boolean(argv.debug),
+  debug: Boolean(argv['debug']),
   connection: {
     connectionString: postgresConfig.connection,
     ssl: {
