@@ -38,6 +38,8 @@ Note: Replace `8080` with the port for the api server if different than `8080`.
 
 Next, in your Firebase project that was created for `../server`, navigate to the "Settings" page, "General" tab, and look for "Firebase SDK snippet" > "Config". Copy the appropriate config settings to the corresponding variables in `.env.local`.
 
+Finally, enable Authentication in your Firebase project. Otherwise, you will not be able to authenticate in your local development environment.
+
 ## OAuth
 
 In order to authenticate with OAUTH providers (Facebook, GitHub, Google, Twitter), additional configuration is required:
