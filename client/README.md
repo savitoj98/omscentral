@@ -25,10 +25,10 @@ npm ci
 First, copy the default environment variables file:
 
 ```
-cp .env.staging .env.development.local
+cp .env.staging .env.local
 ```
 
-Then, modify `.env.development.local` such that:
+Then, modify `.env.local` such that:
 
 ```sh
 REACT_APP_API_URI="http://localhost:8080/graphql"
@@ -36,7 +36,7 @@ REACT_APP_API_URI="http://localhost:8080/graphql"
 
 Note: Replace `8080` with the port for the api server if different than `8080`.
 
-Next, in your Firebase project that was created for `../server`, navigate to the "Settings" page, "General" tab, and look for "Firebase SDK snippet" > "Config". Copy the appropriate config settings to the corresponding variables in `.env.development.local`.
+Next, in your Firebase project that was created for `../server`, navigate to the "Settings" page, "General" tab, and look for "Firebase SDK snippet" > "Config". Copy the appropriate config settings to the corresponding variables in `.env.local`.
 
 ## OAuth
 
@@ -47,7 +47,7 @@ In order to authenticate with OAUTH providers (Facebook, GitHub, Google, Twitter
 - [google](https://firebase.google.com/docs/auth/web/google-signin)
 - [twitter](https://firebase.google.com/docs/auth/web/twitter-login)
 
-Note that Facebook blocks authentication if `location.protocol !== 'https'`. To force `https://localhost:3000` in place of `http://localhost:3000`, add the following to your `.env.development.local`:
+Note that Facebook blocks authentication if `location.protocol !== 'https'`. To force `https://localhost:3000` in place of `http://localhost:3000`, add the following to your `.env.local`:
 
 ```
 HTTPS=true
@@ -93,7 +93,7 @@ npm run build:local
 npm run firebase deploy -- --only hosting --project <your_project_name>
 ```
 
-Note that `npm run build:local` loads environment variables from `.env.development.local`.
+Note that `npm run build:local` loads environment variables from `.env.local`.
 
 ### CI
 
