@@ -20,13 +20,17 @@ export const isGooglebot = async (
     return false;
   }
 
-  const fromDomain = getLastPiece(await execute(`host ${fromIP}`));
-  if (!fromDomain || !/google(bot)?\.com$/.test(fromDomain)) {
-    return false;
-  }
+  try {
+    const fromDomain = getLastPiece(await execute(`host ${fromIP}`));
+    if (!fromDomain || !/google(bot)?\.com$/.test(fromDomain)) {
+      return false;
+    }
 
-  const fromDomainIP = getLastPiece(await execute(`host ${fromDomain}`));
-  if (!fromDomainIP || fromDomainIP !== fromIP) {
+    const fromDomainIP = getLastPiece(await execute(`host ${fromDomain}`));
+    if (!fromDomainIP || fromDomainIP !== fromIP) {
+      return false;
+    }
+  } catch {
     return false;
   }
 
