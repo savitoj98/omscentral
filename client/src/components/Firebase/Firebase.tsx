@@ -8,7 +8,7 @@ import { firebaseConfig } from 'src/config';
 
 const app = firebase.initializeApp(firebaseConfig);
 
-if (process.env.NODE === 'production') {
+if (process.env.NODE_ENV === 'production') {
   firebase.performance(app);
   firebase.analytics(app);
 }
