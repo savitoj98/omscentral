@@ -1,4 +1,5 @@
 import React from 'react';
+import { reviewMeta } from 'src/constants/reviewMeta';
 import { semesterMeta } from 'src/constants/semesterMeta';
 import { Option, QueryParam, ReviewSortKey as SortKey } from 'src/core';
 import useCurrentCourses from 'src/core/hooks/useCurrentCourses';
@@ -9,7 +10,10 @@ import Toolbar, { Props as ChildProps } from './Toolbar';
 
 type Props = Omit<
   ChildProps,
-  'courseFilterOptions' | 'semesterFilterOptions' | 'sortKeyOptions'
+  | 'courseFilterOptions'
+  | 'semesterFilterOptions'
+  | 'difficultyFilterOptions'
+  | 'sortKeyOptions'
 >;
 
 const sortKeyOptions = [
@@ -31,7 +35,7 @@ const ToolbarContainer: React.FC<Props> = (props) => {
     }),
   );
 
-  const currentCoursesSemesters = new Set(
+  const currentCoursesSemesters = new Set<string>(
     currentCourses.reduce<string[]>(
       (ids, course) => [...ids, ...(course.metric?.semesters ?? [])],
       [],
@@ -48,6 +52,8 @@ const ToolbarContainer: React.FC<Props> = (props) => {
       label: semesterMeta.translateSeason(semester.season),
     }));
 
+  const difficultyFilterOptions: Option<number>[] = [...reviewMeta.difficulty];
+
   return (
     <Toolbar
       {...props}
@@ -55,11 +61,13 @@ const ToolbarContainer: React.FC<Props> = (props) => {
         ? {
             courseFilterOptions: [],
             semesterFilterOptions: [],
+            difficultyFilterOptions: [],
             sortKeyOptions,
           }
         : {
             courseFilterOptions,
             semesterFilterOptions,
+            difficultyFilterOptions,
             sortKeyOptions,
           })}
     />

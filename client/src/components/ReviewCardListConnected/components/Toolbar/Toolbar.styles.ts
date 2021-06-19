@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
       '& > * + *': {
         marginBottom: theme.spacing(1),
+        width: '100%',
       },
     },
     [theme.breakpoints.up('sm')]: {

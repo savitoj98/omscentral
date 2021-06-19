@@ -97,6 +97,7 @@ const SemesterFilter: React.FC<Props> = ({
   };
 
   const handleSemesterClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     const value = event.currentTarget.dataset['id'];
     if (value != null) {
       toggleSemester(value);
@@ -106,6 +107,7 @@ const SemesterFilter: React.FC<Props> = ({
   const handleSemesterCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    event.preventDefault();
     const value = event.currentTarget.id;
     toggleSemester(value, !event.currentTarget.checked);
   };
