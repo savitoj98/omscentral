@@ -6,6 +6,7 @@ import { Option, ReviewSortKey as SortKey } from 'src/core';
 import useBoolean from 'src/core/hooks/useBoolean';
 
 import AutocompleteFilter from '../AutocompleteFilter';
+import DifficultyFilter from '../DifficultyFilter';
 import FilterPopover from '../FilterPopover';
 import SemesterFilter from '../SemesterFilter';
 import ToolbarButton from '../ToolbarButton';
@@ -18,6 +19,9 @@ export interface Props {
   semesterFilter?: string[];
   semesterFilterOptions: Option[];
   onSemesterFilterChange: (filter: string[]) => void;
+  difficultyFilter?: number[];
+  difficultyFilterOptions: Option<number>[];
+  onDifficultyFilterChange: (filter: number[]) => void;
   sortKey?: SortKey;
   sortKeyOptions: Option<SortKey>[];
   onSortKeyChange: (key: SortKey) => void;
@@ -31,6 +35,9 @@ const Toolbar: React.FC<Props> = ({
   semesterFilter,
   semesterFilterOptions,
   onSemesterFilterChange,
+  difficultyFilter,
+  difficultyFilterOptions,
+  onDifficultyFilterChange,
   sortKey,
   sortKeyOptions,
   onSortKeyChange,
@@ -50,6 +57,12 @@ const Toolbar: React.FC<Props> = ({
     setFalse: hideSemesterFilter,
   } = useBoolean(false);
 
+  const {
+    value: isDifficultyFilterOpen,
+    setTrue: showDifficultyFilter,
+    setFalse: hideDifficultyFilter,
+  } = useBoolean(false);
+
   const handleCourseFilterSubmit = (courseIds: string[]) => {
     onCourseFilterChange(courseIds);
     hideCourseFilter();
@@ -58,6 +71,11 @@ const Toolbar: React.FC<Props> = ({
   const handleSemesterFilterSubmit = (semesterIds: string[]) => {
     onSemesterFilterChange(semesterIds);
     hideSemesterFilter();
+  };
+
+  const handleDifficultyFilterSubmit = (difficulties: number[]) => {
+    onDifficultyFilterChange(difficulties);
+    hideDifficultyFilter();
   };
 
   const sortKeyOption = sortKeyOptions.find(({ value }) => value === sortKey)!;
@@ -101,6 +119,24 @@ const Toolbar: React.FC<Props> = ({
             options={semesterFilterOptions}
             initialValues={semesterFilter}
             onSubmit={handleSemesterFilterSubmit}
+          />
+        </FilterPopover>
+      )}
+
+      {difficultyFilterOptions.length > 0 && difficultyFilter != null && (
+        <FilterPopover
+          id="filter_by_difficulties"
+          name="Difficulties"
+          total={difficultyFilterOptions.length}
+          selected={difficultyFilter.length}
+          open={isDifficultyFilterOpen}
+          onOpen={showDifficultyFilter}
+          onClose={hideDifficultyFilter}
+        >
+          <DifficultyFilter
+            options={difficultyFilterOptions}
+            initialValues={difficultyFilter}
+            onSubmit={handleDifficultyFilterSubmit}
           />
         </FilterPopover>
       )}

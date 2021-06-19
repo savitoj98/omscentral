@@ -29,10 +29,15 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       [QueryParam.Course]: string[];
       [QueryParam.Semester]: string[];
       [QueryParam.Sort]: SortKey;
+      [QueryParam.Difficulty]: string[];
     }>();
 
   const courseFilter = asArray<string>(variables?.course_ids || params.course);
   const semesterFilter = asArray<string>(params.semester);
+  const difficultyFilter = asArray<string>(params.difficulty).map(
+    (difficulty) => Number(difficulty),
+  );
+
   const sortKey = params.sort || SortKey.Created;
 
   const [paginate, setPaginate] = useState(pagination);
@@ -45,6 +50,7 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       order_by_desc: [sortKey, SortKey.Created],
       course_ids: courseFilter,
       semester_ids: semesterFilter,
+      difficulties: difficultyFilter,
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -84,7 +90,8 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   };
 
   const handleFilterChange =
-    (param: QueryParam, oldFilter: string[]) => (newFilter: string[]) => {
+    <T extends string | number>(param: QueryParam, oldFilter: T[]) =>
+    (newFilter: T[]) => {
       if (newFilter.sort().join(',') !== oldFilter.sort().join(',')) {
         setLimit(10);
 
@@ -105,6 +112,11 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   const handleSemesterFilterChange = handleFilterChange(
     QueryParam.Semester,
     semesterFilter,
+  );
+
+  const handleDifficultyFilterChange = handleFilterChange(
+    QueryParam.Difficulty,
+    difficultyFilter,
   );
 
   const handleSortKeyChange = (key: SortKey) => {
@@ -128,6 +140,8 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       onCourseFilterChange={handleCourseFilterChange}
       semesterFilter={semesterFilter}
       onSemesterFilterChange={handleSemesterFilterChange}
+      difficultyFilter={difficultyFilter}
+      onDifficultyFilterChange={handleDifficultyFilterChange}
       sortKey={sortKey}
       onSortKeyChange={handleSortKeyChange}
       onLoadMore={
