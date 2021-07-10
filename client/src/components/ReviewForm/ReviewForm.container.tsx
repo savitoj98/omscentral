@@ -28,7 +28,7 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
 
   const mode = !review
     ? 'make'
-    : auth.user?.uid === review.author?.id
+    : auth.user?.uid === review.author_id
     ? 'edit'
     : 'view';
 

@@ -34,7 +34,7 @@ interface Props {
 const ReviewCard: React.FC<Props> = ({
   review: {
     id,
-    author,
+    author_id,
     course,
     semester,
     difficulty: d,
@@ -84,7 +84,7 @@ const ReviewCard: React.FC<Props> = ({
   const handleEditClick = () => history.push(paths.review.update(id));
   const handleDeepLinkCopy = () => setTimeout(onDeepLinkCopy, 0);
 
-  const action = xs ? null : auth.user?.uid === author.id ? (
+  const action = xs ? null : auth.user?.uid === author_id ? (
     <IconButton
       onClick={handleEditClick}
       color="inherit"
