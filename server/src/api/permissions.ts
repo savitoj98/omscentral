@@ -20,10 +20,10 @@ export const permissions = shield(
       courses: allow,
       programs: allow,
       review: allow,
+      reviews: allow,
       semesters: allow,
       specializations: allow,
       user: isSelf,
-      reviews: allow,
     },
     Mutation: {
       '*': deny,

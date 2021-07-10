@@ -19,9 +19,7 @@ query reviews(
     query: $query
   ) {
     id
-    author {
-      id
-    }
+    author_id
     course {
       id
       name

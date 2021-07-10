@@ -131,8 +131,8 @@ Someone's opinion/thoughts about some course offering.
 type Review {
   "UUID."
   id: String!
-  "The person who wrote the review."
-  author: User!
+  # "The person who wrote the review."
+  # author: User!
   author_id: String!
   "The course for which the review was written."
   course: Course!
