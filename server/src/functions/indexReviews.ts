@@ -1,8 +1,14 @@
-import { flatMap } from 'lodash';
+import { flatMap, omit } from 'lodash';
+import { ModelObject } from 'objection';
 
 import { logger, search } from '../components';
 import { reviewsIndex } from '../constants';
 import { Review } from '../models';
+
+const blocklistProps: (keyof Review)[] = ['author', 'author_id'];
+
+const getReviewJSON = (review: Review): Partial<ModelObject<Review>> =>
+  omit(review.toJSON(), blocklistProps);
 
 export const indexReviews = async (): Promise<void> => {
   if (await search.indexExists(reviewsIndex)) {
@@ -43,7 +49,7 @@ export const indexReviews = async (): Promise<void> => {
           _index: reviewsIndex,
         },
       },
-      review.toJSON(),
+      getReviewJSON(review),
     ]),
   });
   logger.debug('functions(indexReviews): bulkIndex END');
@@ -53,7 +59,7 @@ export const indexReview = async (
   review: Review,
   mode: 'create' | 'update',
 ): Promise<void> => {
-  const doc = review.toJSON();
+  const doc = getReviewJSON(review);
   if (mode === 'create') {
     await search.createDocument(reviewsIndex, doc);
   } else {
