@@ -46,19 +46,22 @@ Runs cypress integration tests that enforce correct behavior. Requires the appli
 
 When finished, users created during tests may be cleaned up using this script.
 
-## System Architecture overview
+## System Architecture
 
-- OMSCentral is a course review website primarily written in [TypeScript](https://www.typescriptlang.org/).
-- This section provides a high level summary of the current architecture:
+OMSCentral is a web application written primarily in [TypeScript](https://www.typescriptlang.org/).
+
+This section provides a high level summary of the current architecture:
+
+![system architecture diagram](./diagrams/system-architecture.png)
 
 ### Client
 
-- The client is a React single-page-application(SPA) that allows users to see anonymous reviews.
-- Authenticated users may also publish, edit, or delete reviews, that they own, for the courses.
+- The client is a React single-page-application (SPA) that allows users to see anonymous reviews.
+- Authenticated users may also publish, edit, or delete reviews that they own.
 
-#### Tools used
+#### Technologies
 
-The following is a short list of tools used, ordered by category:
+The following is a short list of technologies used, ordered by category:
 
 #### UI
 
@@ -79,7 +82,7 @@ The following is a short list of tools used, ordered by category:
 
 - [Firebase](https://firebase.google.com/) is used for deployment.
 
-#### Build time
+#### Build
 
 - [eslint](https://eslint.org/docs/user-guide/getting-started) for build time linting and static analysis.
 - [prettier](https://prettier.io/docs/en/) is used for code formatting.
@@ -88,56 +91,47 @@ The following is a short list of tools used, ordered by category:
 
 - [cypress](https://docs.cypress.io/) is used for writing tests.
 
-Please refer to the [package.json](client/package.json) file the for the most up-to-date list of tools used with version numbers mentioned.
+Please refer to [client/package.json](client/package.json) file for the most up-to-date list of dependencies used with version numbers mentioned.
 
 ### Server
 
-The server
+- Persists course reviews and semester information to the database (see persistence section below).
+- Updates the statistics for courses (e.g average workload, minimum rating etc.).
 
-- persists course reviews and semester information to the database(See Persistence section below).
-- updates the statistics for courses
-  - e.g average workload, minimum rating etc
+### Technologies
 
-### Tools used
-
-The following is a short list of tools used, ordered by category:
+The following is a short list of technologies used, ordered by category:
 
 ### Framework
 
 - Node.js based [express](https://expressjs.com/)
 
-### Database
+### Database IO
 
-- [Objection](https://vincit.github.io/objection.js/) is used for Object Relational Mapping(ORM).
+- [objection](https://vincit.github.io/objection.js/) is used for Object Relational Mapping (ORM).
 - [knex](https://knexjs.org/) is used as a query builder.
 
-### Synchronization
+### Async
 
 - [bluebird](http://bluebirdjs.com/docs/api-reference.html) is used for access to synchronization primitives like promises in JavaScript.
 
 ### Logging
 
-- [Winston](https://github.com/winstonjs/winston) is used for logging.
+- [winston](https://github.com/winstonjs/winston) is used for logging.
 
-Please refer to the [package.json](server/package.json) file the for the most up-to-date list of tools used with version numbers mentioned.
+Please refer to [server/package.json](server/package.json) file for the most up-to-date list of dependencies used with version numbers mentioned.
 
-### Persistence
+### Data Persistence
 
-- The courses, semesters and reviews data is stored in a relational database.
-- Relational Database used: [postgres](https://www.postgresql.org/)
-- The server reads and writes to postgres database using objection js and knex js.
+- Courses, semesters, reviews, etc. is stored in [postgres](https://www.postgresql.org/) (relational database).
+- Server reads and writes to postgres database using objection js and knex js.
 
-## User Authenication
+## User Authentication
 
-- User authenication is a security layer.
-- It allows a user to register his/her profile.
+- User authentication is a security layer, allowning users to register for an account.
 - After his/her credentials are verified at time of login, the user can modify review data after.
-- Tools used:[Firebase](https://firebase.google.com/docs/auth/web/start)
+- Identity as a Service (IaaS): [Firebase](https://firebase.google.com/docs/auth/web/start).
 
-## Package management
+## Package Management
 
-- The third party dependencies are obtained using npm.
-- Tools used: [npm](https://www.npmjs.com/)
-
-For a system architecture diagram, please see [here](./diagrams/SystemArchitecture.png).
-
+- Third party dependencies are installed using [npm](https://www.npmjs.com/).
