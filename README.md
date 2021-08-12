@@ -98,30 +98,30 @@ Please refer to [client/package.json](client/package.json) file for the most up-
 - Persists course reviews and semester information to the database (see persistence section below).
 - Updates the statistics for courses (e.g average workload, minimum rating etc.).
 
-### Technologies
+#### Technologies
 
 The following is a short list of technologies used, ordered by category:
 
-### Framework
+#### Framework
 
 - Node.js based [express](https://expressjs.com/)
 
-### Database IO
+#### Database IO
 
 - [objection](https://vincit.github.io/objection.js/) is used for Object Relational Mapping (ORM).
 - [knex](https://knexjs.org/) is used as a query builder.
 
-### Async
+#### Async
 
 - [bluebird](http://bluebirdjs.com/docs/api-reference.html) is used for access to synchronization primitives like promises in JavaScript.
 
-### Logging
+#### Logging
 
 - [winston](https://github.com/winstonjs/winston) is used for logging.
 
 Please refer to [server/package.json](server/package.json) file for the most up-to-date list of dependencies used with version numbers mentioned.
 
-### Data Persistence
+#### Data Persistence
 
 - Courses, semesters, reviews, etc. is stored in [postgres](https://www.postgresql.org/) (relational database).
 - Server reads and writes to postgres database using objection js and knex js.
