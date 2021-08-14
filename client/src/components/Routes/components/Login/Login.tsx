@@ -150,7 +150,7 @@ const Login: React.FC<Props> = ({ disabled, onSubmit, onSocialLogin }) => {
           <Grid
             container
             alignItems="center"
-            justify="space-between"
+            justifyContent="space-between"
             className={classes.social}
           >
             {social.map(({ key, icon, provider }) => (

@@ -17,7 +17,8 @@ const Link: React.FC<LinkProps & { to: string | null }> = (props) => {
     } else if (/^http(s?):\/\//.test(to)) {
       firebase.analytics.logEvent('screen_view', {
         app_name: 'external_link',
-        screen_name: to,
+        firebase_screen: to,
+        firebase_screen_class: 'Link',
       });
       window.open(to); // eslint-disable-line
     } else {

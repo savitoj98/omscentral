@@ -87,7 +87,7 @@ const SemesterHistory: React.FC<Props> = ({ history, semesters }) => {
         direction="row"
         container
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         aria-owns={open ? 'semester-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}

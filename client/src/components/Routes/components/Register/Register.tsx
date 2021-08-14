@@ -94,7 +94,7 @@ const Register: React.FC<Props> = ({ disabled, onSubmit }) => {
           >
             Register
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={paths.login} data-cy="register:login">
                 Already have an account? Login

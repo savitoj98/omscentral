@@ -1,1 +1,1 @@
-export type SeasonSize = 'small' | 'large' | 'default';
+export type SeasonSize = 'small' | 'large' | 'medium';

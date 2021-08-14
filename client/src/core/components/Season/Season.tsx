@@ -24,7 +24,7 @@ interface Props {
   size?: SeasonSize;
 }
 
-const Season: React.FC<Props> = ({ className, season, size = 'default' }) => {
+const Season: React.FC<Props> = ({ className, season, size = 'medium' }) => {
   const classes = useStyles();
 
   const seasonClasses: { [key in SeasonEnum]?: string } = {
@@ -37,7 +37,7 @@ const Season: React.FC<Props> = ({ className, season, size = 'default' }) => {
   const sizeClasses: { [key in SeasonSize]?: string } = {
     small: classes.small,
     large: classes.large,
-    default: undefined,
+    medium: undefined,
   };
 
   const Icon = seasonIcons[season];

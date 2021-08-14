@@ -24,13 +24,12 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   const history = useHistory();
   const location = useLocation();
 
-  const params =
-    useQueryParams<{
-      [QueryParam.Course]: string[];
-      [QueryParam.Semester]: string[];
-      [QueryParam.Sort]: SortKey;
-      [QueryParam.Difficulty]: string[];
-    }>();
+  const params = useQueryParams<{
+    [QueryParam.Course]: string[];
+    [QueryParam.Semester]: string[];
+    [QueryParam.Sort]: SortKey;
+    [QueryParam.Difficulty]: string[];
+  }>();
 
   const courseFilter = asArray<string>(variables?.course_ids || params.course);
   const semesterFilter = asArray<string>(params.semester);
