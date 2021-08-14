@@ -79,7 +79,7 @@ const SetPassword: React.FC<Props> = ({ email, disabled, onSubmit }) => {
           <Button type="submit" fullWidth disabled={disabled}>
             Set Password
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={paths.resetPassword}>Need another link?</Link>
             </Grid>
