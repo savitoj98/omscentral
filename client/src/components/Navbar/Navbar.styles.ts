@@ -49,4 +49,7 @@ export const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  coffee: {
+    marginLeft: theme.spacing(1),
+  },
 }));

@@ -13,6 +13,7 @@ import useQueryParams from 'src/core/hooks/useQueryParams';
 import { AuthContext } from '../Auth';
 import { FirebaseContext } from '../Firebase';
 import Grow from '../Grow';
+import Link from '../Link';
 import NavbarButton from './components/NavbarButton';
 import SearchInput from './components/SearchInput';
 import UserMenu from './components/UserMenu';
@@ -72,6 +73,12 @@ const Navbar: React.FC = () => {
             <NavbarButton path={paths.login}>Login</NavbarButton>
           )}
           {auth.initializing ? null : auth.authenticated && <UserMenu />}
+          <Link
+            to="https://buymeacoffee.com/omscentral"
+            className={classes.coffee}
+          >
+            ☕️
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
