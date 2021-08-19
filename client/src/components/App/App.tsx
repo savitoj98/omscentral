@@ -5,6 +5,7 @@ import { browserHistory } from 'src/constants';
 import Actions from '../Actions';
 import { AuthContext } from '../Auth';
 import ErrorBoundary from '../ErrorBoundary';
+import LearnMore from '../LearnMore';
 import Loading from '../Loading';
 import Navbar from '../Navbar';
 import Routes from '../Routes';
@@ -21,7 +22,8 @@ const App: React.FC = () => {
         {auth.initializing ? (
           <Loading />
         ) : (
-          <div className={classes.routes}>
+          <div className={classes.main}>
+            <LearnMore />
             <Suspense fallback={<Loading />}>
               <Routes />
             </Suspense>

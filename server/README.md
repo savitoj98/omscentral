@@ -68,6 +68,7 @@ Then, complete `.env` based on the following expectations:
 | OMSCENTRAL_FIREBASE_DATABASE_URL | URL of the database that you created under the Firebase section above                         |
 | OMSCENTRAL_POSTGRES_CONNECTION   | postgres connection string (defaults to process.env.DATABASE_URL)                             |
 | OMSCENTRAL_SENTRY_DSN            | OPTIONAL: sentry uri for issue logging                                                        |
+| OMSCENTRAL_SLACK_WEBHOOK_URL     | OPTIONAL: slack webhook url for realtime slack notifications                                  |
 | APOLLO_KEY                       | OPTIONAL: api key for apollo studio metrics logging                                           |
 | SEARCHBOX_URL                    | OPTIONAL: elastic search web api host URI                                                     |
 | SEARCHBOX_SSL_URL                | OPTIONAL: elastic search web api host URI (overrides `SEARCHBOX_URL`)                         |
