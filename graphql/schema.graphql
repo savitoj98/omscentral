@@ -255,6 +255,14 @@ input UserInputType {
   last_signed_in: Float!
 }
 
+input LearnMoreInputType {
+  message: String!
+}
+
+type LearnMoreResponseType {
+  success: Boolean!
+}
+
 """
 API mutations.
 """
@@ -273,4 +281,7 @@ type Mutation {
 
   "Soft-deletes a review record."
   deleteReview(id: String!): Review!
+
+  "Submits a Learn More inquiry."
+  learnMore(input: LearnMoreInputType!): LearnMoreResponseType!
 }

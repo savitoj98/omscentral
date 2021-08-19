@@ -1,0 +1,5 @@
+mutation learnMore($input: LearnMoreInputType!) {
+  learnMore(input: $input) {
+    success
+  }
+}

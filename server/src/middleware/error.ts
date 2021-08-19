@@ -1,8 +1,10 @@
 import { Boom, boomify, unauthorized } from '@hapi/boom';
+import * as Sentry from '@sentry/node';
 import { ErrorRequestHandler } from 'express';
 
 import { logger } from '../components';
 import { appConfig } from '../config';
+import { Request } from '../types';
 
 const parseError = (error: Error | Boom | any): Boom =>
   error instanceof Boom
@@ -22,6 +24,12 @@ export const middleware =
     if (error?.message === 'CORS') {
       error = unauthorized('CORS');
     }
+
+    Sentry.captureException(error, {
+      extra: {
+        req: JSON.parse(JSON.stringify(req)),
+      },
+    });
 
     const { output } = parseError(error);
 

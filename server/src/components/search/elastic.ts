@@ -1,10 +1,10 @@
 import { Client } from '@elastic/elasticsearch';
 import { RequestNDBody } from '@elastic/elasticsearch/lib/Transport';
 
-import { searchConfig } from '../../config';
+import { elasticConfig } from '../../config';
 
-export const client = searchConfig.host
-  ? new Client({ node: searchConfig.host })
+export const client = elasticConfig.host
+  ? new Client({ node: elasticConfig.host })
   : null;
 
 export const indexExists = async (index: string): Promise<boolean> => {
