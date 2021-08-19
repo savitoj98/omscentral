@@ -10,9 +10,10 @@ import { AlertTitle } from '@material-ui/lab';
 import Alert from '@material-ui/lab/Alert';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
+import { paths } from 'src/constants';
+import useLocal from 'src/core/utils/useLocalStorage';
+import { useLearnMoreMutation } from 'src/graphql';
 
-import { paths } from '../../constants';
-import { useLearnMoreMutation } from '../../graphql';
 import { AuthContext } from '../Auth';
 import Link from '../Link';
 import { NotificationContext } from '../Notification';
@@ -26,6 +27,7 @@ const LearnMore: React.FC = () => {
   const [learnMore, { loading }] = useLearnMoreMutation();
 
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useLocal<boolean>('/c:submitted', false);
   const [message, setMessage] = useState('');
 
   const handleOpen = () => {
@@ -45,6 +47,8 @@ const LearnMore: React.FC = () => {
   const handleSubmit = async (): Promise<void> => {
     const result = await learnMore({ variables: { input: { message } } });
     if (result.data?.learnMore.success) {
+      setOpen(false);
+      setSubmitted(true);
       notification?.success(
         "Thank you for your interest. I'll be in touch within 24 hours!",
       );
@@ -52,6 +56,10 @@ const LearnMore: React.FC = () => {
       notification?.error('Something went wrong. Please try again.');
     }
   };
+
+  if (submitted) {
+    return null;
+  }
 
   return (
     <Container component="main" maxWidth="xl" className={classes.container}>
