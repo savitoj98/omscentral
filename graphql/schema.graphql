@@ -200,7 +200,11 @@ type Query {
   config(id: String!): Config!
 
   "Fetches a course."
-  course(id: String!): Course!
+  course(
+    id: String!
+    semester_ids: [String!]! = []
+    difficulties: [Int!]! = []
+  ): Course!
 
   "Fetches all courses."
   courses: [Course!]!

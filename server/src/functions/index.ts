@@ -1,5 +1,6 @@
 export * from './deleteReview';
 export * from './deleteUser';
+export * from './getCourseMetrics';
 export * from './getReview';
 export * from './getUser';
 export * from './indexReviews';

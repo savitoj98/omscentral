@@ -24,20 +24,18 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   const history = useHistory();
   const location = useLocation();
 
-  const params = useQueryParams<{
+  const { course, semester, difficulty, sort } = useQueryParams<{
     [QueryParam.Course]: string[];
     [QueryParam.Semester]: string[];
     [QueryParam.Sort]: SortKey;
     [QueryParam.Difficulty]: string[];
   }>();
 
-  const courseFilter = asArray<string>(variables?.course_ids || params.course);
-  const semesterFilter = asArray<string>(params.semester);
-  const difficultyFilter = asArray<string>(params.difficulty).map(
-    (difficulty) => Number(difficulty),
-  );
+  const courseFilter = asArray<string>(variables?.course_ids || course);
+  const semesterFilter = asArray<string>(semester);
+  const difficultyFilter = asArray<string>(difficulty).map((_) => Number(_));
 
-  const sortKey = params.sort || SortKey.Created;
+  const sortKey = sort || SortKey.Created;
 
   const [paginate, setPaginate] = useState(pagination);
   const [limit, setLimit] = useSession('rcl:l', paginate ? 10 : 10e6);
