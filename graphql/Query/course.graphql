@@ -1,5 +1,9 @@
-query course($id: String!) {
-  course(id: $id) {
+query course(
+  $id: String!
+  $semester_ids: [String!]! = []
+  $difficulties: [Int!]! = []
+) {
+  course(id: $id, semester_ids: $semester_ids, difficulties: $difficulties) {
     id
     department
     number
