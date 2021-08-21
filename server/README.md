@@ -61,7 +61,6 @@ Then, complete `.env` based on the following expectations:
 | OMSCENTRAL_GRAPHQL_REPORT_SCHEMA | OPTIONAL: if `true`, reports schema to apollo studio                                          |
 | OMSCENTRAL_LOG_LEVEL             | OPTIONAL: winston log level                                                                   |
 | OMSCENTRAL_MORGAN_FORMAT         | OPTIONAL: predefined [morgan format](https://www.npmjs.com/package/morgan#predefined-formats) |
-| OMSCENTRAL_NAME                  | OPTIONAL: human-readable instance name for logging                                            |
 | OMSCENTRAL_FIREBASE_PRIVATE_KEY  | from firebase private key json                                                                |
 | OMSCENTRAL_FIREBASE_CLIENT_EMAIL | from firebase private key json                                                                |
 | OMSCENTRAL_FIREBASE_PROJECT_ID   | from firebase private key json                                                                |
