@@ -68,8 +68,8 @@ const LearnMore: React.FC = () => {
       <Alert severity="info">
         <AlertTitle>Looking for a career in FAANG?</AlertTitle>
         I&apos;m Mehmet (the creator of omscentral.com) and I&apos;ve worked at
-        / landed job offers from Facebook, Amazon, Apple, Netflix, and Google. I
-        think we can do great things together.{' '}
+        and landed job offers from Facebook, Amazon, Apple, Netflix, and Google.
+        I think we can do great things together.{' '}
         <Link to="#" onClick={handleOpen} className={classes.link}>
           Learn more →
         </Link>
@@ -91,25 +91,26 @@ const LearnMore: React.FC = () => {
           />
           <DialogContentText>
             Thank you for being here. Your continued support means the world to
-            me.
+            me. 🙏
             <br />
             <br />
             As a software engineer in FAANG, I love helping others find joy and
-            fulfillment in their careers. After graduating from Tech in 2009, I
-            went to Emory medical school only to drop out within my first year.
-            Now, I help solve privacy for the world. Along the way, I&apos;ve
-            worked at / landed job offers from every FAANG company, and I know
-            what it takes to be a successful in the tech industry.
+            fulfillment in their careers. After graduating from Georgia Tech in
+            2009, I went to Emory medical school only to drop out during my
+            first year. Now, I help solve privacy for the world at Facebook.
+            Along the way, I&apos;ve worked at and landed job offers from every
+            FAANG company, and I know what it takes to be successful in the tech
+            industry. 😎
             <br />
             <br />
-            I&apos;d love to get to know you better and see how we can
-            accomplish great things together, whether it&apos;s a career in big
+            I&apos;d love to get to know you better and discover the great
+            things we can accomplish together, whether it&apos;s a career in big
             tech, freelancing at a multi-national, or starting your own
-            business.
+            business. 🥳
             <br />
             <br />
             Once you shoot me a message, I&apos;ll be in touch with next
-            steps&mdash;looking forward to hearing from you!
+            steps&mdash;looking forward to hearing from you! 🙇‍♂️
           </DialogContentText>
           <TextField
             autoFocus
