@@ -1,3 +1,4 @@
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,6 +19,7 @@ import { AuthContext } from '../Auth';
 import Link from '../Link';
 import { NotificationContext } from '../Notification';
 import { useStyles } from './LearnMore.styles';
+import avatarImageUri from './mehmet.jpg';
 
 const LearnMore: React.FC = () => {
   const classes = useStyles();
@@ -27,7 +29,7 @@ const LearnMore: React.FC = () => {
   const [learnMore, { loading }] = useLearnMoreMutation();
 
   const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useLocal<boolean>('/c:submitted', false);
+  const [submitted, setSubmitted] = useLocal<boolean>('/c:coaching', false);
   const [message, setMessage] = useState('');
 
   const handleOpen = () => {
@@ -64,9 +66,10 @@ const LearnMore: React.FC = () => {
   return (
     <Container component="main" maxWidth="xl" className={classes.container}>
       <Alert severity="info">
-        <AlertTitle>Facebook is hiring!</AlertTitle>
-        FBDC is hiring ML engineers, SWEs, and other roles to help solve privacy
-        for the world. Remote allowed.{' '}
+        <AlertTitle>Looking for a career in FAANG?</AlertTitle>
+        I&apos;m Mehmet (the creator of omscentral.com) and I&apos;ve worked at
+        / landed job offers from Facebook, Amazon, Apple, Netflix, and Google. I
+        think we can do great things together.{' '}
         <Link to="#" onClick={handleOpen} className={classes.link}>
           Learn more →
         </Link>
@@ -77,20 +80,36 @@ const LearnMore: React.FC = () => {
         onClose={handleClose}
         aria-labelledby="learn-more-dialog-title"
       >
-        <DialogTitle id="learn-more-dialog-title">
-          Facebook is hiring!
+        <DialogTitle id="learn-more-dialog-title" className={classes.centered}>
+          Hi there, I&apos;m Mehmet! 😄
         </DialogTitle>
         <DialogContent>
+          <Avatar
+            alt="Mehmet Bajin"
+            src={avatarImageUri}
+            className={classes.avatar}
+          />
           <DialogContentText>
-            Hi, there! I&apos;m Mehmet, the person behind omscentral.com.
+            Thank you for being here. Your continued support means the world to
+            me.
             <br />
             <br />
-            I&apos;m a staff SWE at Facebook DC, and we&apos;re hiring ML
-            engineers and other roles to help solve privacy for the world. We
-            know we can&apos;t do this alone, so thank you for reaching out.
+            As a software engineer in FAANG, I love helping others find joy and
+            fulfillment in their careers. After graduating from Tech in 2009, I
+            went to Emory medical school only to drop out within my first year.
+            Now, I help solve privacy for the world. Along the way, I&apos;ve
+            worked at / landed job offers from every FAANG company, and I know
+            what it takes to be a successful in the tech industry.
             <br />
             <br />
-            Once you submit this form, I&apos;ll be in touch with next steps.
+            I&apos;d love to get to know you better and see how we can
+            accomplish great things together, whether it&apos;s a career in big
+            tech, freelancing at a multi-national, or starting your own
+            business.
+            <br />
+            <br />
+            Once you shoot me a message, I&apos;ll be in touch with next
+            steps&mdash;looking forward to hearing from you!
           </DialogContentText>
           <TextField
             autoFocus
@@ -103,10 +122,16 @@ const LearnMore: React.FC = () => {
             required
             type="text"
             value={message}
+            className={classes.message}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
+        <DialogActions className={classes.actions}>
+          <Button
+            onClick={handleClose}
+            color="secondary"
+            variant="contained"
+            className={classes.action}
+          >
             Cancel
           </Button>
           <Button
@@ -114,8 +139,9 @@ const LearnMore: React.FC = () => {
             color="primary"
             variant="contained"
             disabled={!message || loading}
+            className={classes.action}
           >
-            Submit
+            Send
           </Button>
         </DialogActions>
       </Dialog>
