@@ -90,8 +90,7 @@ const LearnMore: React.FC = () => {
             className={classes.avatar}
           />
           <DialogContentText>
-            Thank you for being here. Your continued support means the world to
-            me. 🙏
+            Thank you for being here. Your support means the world to me. 🙏
             <br />
             <br />
             As a software engineer in FAANG, I love helping others find joy and
