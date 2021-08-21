@@ -10,7 +10,7 @@ export const info = async (message: string): Promise<boolean> => {
     await webhook.send({
       text: message,
       icon_emoji: 'information_source',
-      username: `Info (${appConfig.name})`,
+      username: `Info (${appConfig.name}@${appConfig.environment})`,
     });
     return true;
   } catch (error) {
