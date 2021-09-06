@@ -4,7 +4,6 @@ import { ErrorRequestHandler } from 'express';
 
 import { logger } from '../components';
 import { appConfig } from '../config';
-import { Request } from '../types';
 
 const parseError = (error: Error | Boom | any): Boom =>
   error instanceof Boom

@@ -1,12 +1,12 @@
-import { number, object, string } from '@hapi/joi';
+import Joi from 'joi';
 
-export const schema = object().keys({
-  id: string(),
-  author_id: string().required(),
-  course_id: string().required(),
-  semester_id: string().required(),
-  difficulty: number().min(1).max(5).integer().required(),
-  rating: number().min(1).max(5).integer().required(),
-  workload: number().min(1).max(100).integer().required(),
-  body: string().required(),
+export const schema = Joi.object().keys({
+  id: Joi.string(),
+  author_id: Joi.string().required(),
+  course_id: Joi.string().required(),
+  semester_id: Joi.string().required(),
+  difficulty: Joi.number().min(1).max(5).integer().required(),
+  rating: Joi.number().min(1).max(5).integer().required(),
+  workload: Joi.number().min(1).max(100).integer().required(),
+  body: Joi.string().required(),
 });

@@ -83,7 +83,7 @@ export class Bootable {
           }
           next(error);
         });
-      } catch (error) {
+      } catch (error: any) {
         next(error);
       }
     };

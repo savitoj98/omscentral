@@ -1,3 +1,4 @@
+import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FirebaseContext } from 'src/components/Firebase';
@@ -14,10 +15,10 @@ const ResetPasswordContainer: React.FC = () => {
   const handleSubmit = async ({ email }: FormData) => {
     setLoading(true);
     try {
-      await firebase.auth.sendPasswordResetEmail(email);
+      await sendPasswordResetEmail(firebase.auth, email);
       notification.success(`Password reset email sent to ${email}.`);
-    } catch (error) {
-      notification.error(error.message);
+    } catch {
+      notification.error('Invalid email.');
     } finally {
       setLoading(false);
     }

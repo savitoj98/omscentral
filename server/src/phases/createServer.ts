@@ -1,8 +1,8 @@
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server-express';
 import { Response } from 'express';
 import fs from 'fs';
 import { applyMiddleware } from 'graphql-middleware';
-import { makeExecutableSchema } from 'graphql-tools';
 import path from 'path';
 
 import { Mutation, permissions, Query } from '../api';

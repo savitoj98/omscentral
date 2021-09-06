@@ -1,3 +1,4 @@
+import { logEvent } from '@firebase/analytics';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { paths } from 'src/constants';
@@ -57,7 +58,7 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
           },
         });
 
-        firebase.analytics.logEvent('create_item', {
+        logEvent(firebase.analytics, 'create_item', {
           content_type: 'review',
           content_id: result.data!.insertReview.id,
         });
@@ -68,7 +69,7 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
       } else if (mode === 'edit') {
         await update({ variables: { review: { ...review, author_id } } });
 
-        firebase.analytics.logEvent('update_item', {
+        logEvent(firebase.analytics, 'update_item', {
           content_type: 'review',
           content_id: review!.id,
         });
@@ -86,7 +87,7 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
     try {
       await remove({ variables: { id: review!.id } });
 
-      firebase.analytics.logEvent('delete_item', {
+      logEvent(firebase.analytics, 'delete_item', {
         content_type: 'review',
         content_id: review!.id,
       });

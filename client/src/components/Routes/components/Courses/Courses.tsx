@@ -1,3 +1,4 @@
+import { logEvent } from '@firebase/analytics';
 import Container from '@material-ui/core/Container';
 import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -69,7 +70,7 @@ const Courses: React.FC<Props> = ({
 
   const handleCourseClick = (course: Course) => {
     if (course.metric?.reviews.count) {
-      firebase.analytics.logEvent('select_content', {
+      logEvent(firebase.analytics, 'select_content', {
         content_type: 'course',
         content_id: course.id,
       });

@@ -75,7 +75,7 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
           }
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       sentry.captureException(error, {
         level: sentry.Severity.Error,
         extra: {

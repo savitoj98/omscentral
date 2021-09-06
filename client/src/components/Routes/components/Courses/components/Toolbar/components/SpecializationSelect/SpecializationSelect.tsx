@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { SelectInputProps } from '@material-ui/core/Select/SelectInput';
 import Typography from '@material-ui/core/Typography';
+import { logEvent } from 'firebase/analytics';
 import React, { useContext } from 'react';
 import { FirebaseContext } from 'src/components/Firebase/Firebase';
 import { Nullable } from 'src/core';
@@ -35,7 +36,7 @@ const SpecializationSelect: React.FC<Props> = ({
       return onChange(null);
     }
 
-    firebase.analytics.logEvent('view_item_list', {
+    logEvent(firebase.analytics, 'view_item_list', {
       list_name: specialization.name,
       item_list_name: specialization.name,
       item_list_id: specialization.id,

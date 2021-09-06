@@ -48,7 +48,7 @@ describe('given user is at Register page', () => {
     it('then displays an error message', () => {
       cy.dataCy('toast').should(
         'contain.text',
-        'The email address is already in use by another account.',
+        'Invalid email and password combination.',
       );
     });
   });

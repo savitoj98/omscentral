@@ -63,7 +63,7 @@ export const seed = async (knex: Knex): Promise<void> => {
         emailVerified: true,
         displayName: user.name,
       });
-    } catch (error) {
+    } catch (error: any) {
       logger.debug(`${user.email}: ${error.message}`);
     }
 

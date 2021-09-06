@@ -35,7 +35,7 @@ CREATE AGGREGATE median(anyelement) (
   INITCOND='{}'
 );
     `);
-  } catch (error) {
+  } catch (error: any) {
     logger.error(error);
   }
 };
@@ -46,7 +46,7 @@ exports.down = async (knex: Knex) => {
 DROP AGGREGATE median(anyelement);
 DROP FUNCTION _final_median(anyarray);
     `);
-  } catch (error) {
+  } catch (error: any) {
     logger.error(error);
   }
 };
