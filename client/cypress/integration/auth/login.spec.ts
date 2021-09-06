@@ -43,7 +43,7 @@ describe('given user is at Login page', () => {
     it('then displays an error message', () => {
       cy.dataCy('toast').should(
         'contain.text',
-        'There is no user record corresponding to this identifier. The user may have been deleted.',
+        'Invalid email and password combination.',
       );
     });
   });

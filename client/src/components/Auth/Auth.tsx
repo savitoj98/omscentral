@@ -1,4 +1,5 @@
-import firebase from 'firebase/app';
+import { logEvent, setUserId, setUserProperties } from 'firebase/analytics';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Nullable } from 'src/core';
 import storage from 'src/core/utils/storage';
@@ -11,7 +12,7 @@ import { toInput } from './Auth.utils';
 interface State {
   initializing: boolean;
   authenticated: boolean;
-  user: Nullable<firebase.User>;
+  user: Nullable<User>;
 }
 
 const initialState: State = {
@@ -28,7 +29,7 @@ const Auth: React.FC = ({ children }) => {
   const [upsertUser] = useUpsertUserMutation();
 
   useEffect(() => {
-    const unsubscribe = firebase.auth.onAuthStateChanged(async (authUser) => {
+    const unsubscribe = onAuthStateChanged(firebase.auth, async (authUser) => {
       apollo.resetStore();
 
       setState({
@@ -51,16 +52,19 @@ const Auth: React.FC = ({ children }) => {
       });
 
       if (result.errors && result.errors.length) {
-        await firebase.auth.signOut();
+        await signOut(firebase.auth);
         return;
       }
 
-      const user = result.data!.upsertUser;
-      firebase.analytics.setUserId(user.id, { global: true });
-      firebase.analytics.setUserProperties({ email: user.email });
-      firebase.analytics.logEvent('login', { method: user.auth_provider });
-      if (!user.updated) {
-        firebase.analytics.logEvent('sign_up', { method: user.auth_provider });
+      if (firebase.analytics != null) {
+        const user = result.data!.upsertUser;
+        setUserId(firebase.analytics, user.id, { global: true });
+        setUserProperties(firebase.analytics, { email: user.email });
+        const method = user.auth_provider;
+        logEvent(firebase.analytics, 'login', { method });
+        if (!user.updated) {
+          logEvent(firebase.analytics, 'sign_up', { method });
+        }
       }
     });
 

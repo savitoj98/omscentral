@@ -1,4 +1,8 @@
-import firebase from 'firebase/app';
+import {
+  AuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from '@firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FirebaseContext } from 'src/components/Firebase';
@@ -14,19 +18,21 @@ const LoginContainer: React.FC = () => {
   const handleSubmit = async ({ email, password }: FormData) => {
     setLoading(true);
     try {
-      await firebase.auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      notification.error(error.message);
+      await signInWithEmailAndPassword(firebase.auth, email, password);
+    } catch {
+      notification.error('Invalid email and password combination.');
       setLoading(false);
     }
   };
 
-  const handleSocialLogin = async (provider: firebase.auth.AuthProvider) => {
+  const handleSocialLogin = async (provider: AuthProvider) => {
     setLoading(true);
     try {
-      await firebase.auth.signInWithPopup(provider);
-    } catch (error) {
-      notification.error(error.message);
+      await signInWithPopup(firebase.auth, provider);
+    } catch {
+      notification.error(
+        'Error logging in. Make sure to grant the requested permissions.',
+      );
       setLoading(false);
     }
   };

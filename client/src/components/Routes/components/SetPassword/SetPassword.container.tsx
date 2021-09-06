@@ -1,3 +1,8 @@
+import {
+  confirmPasswordReset,
+  signInWithEmailAndPassword,
+  verifyPasswordResetCode,
+} from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FirebaseContext } from 'src/components/Firebase';
@@ -15,32 +20,37 @@ const SetPasswordContainer: React.FC = () => {
   const [email, setEmail] = useState<Nullable<string>>(null);
   const { oobCode = null } = useQueryParams<{ [QueryParam.OOBCode]: string }>();
 
-  const verifyPasswordResetCode = async () => {
+  const verifyPasswordResetCodeWrapper = async () => {
     if (!oobCode) {
+      notification.error(
+        'The link that brought you here is missing the password reset code.',
+      );
       return setError(true);
     }
     setLoading(true);
     try {
-      setEmail(await firebase.auth.verifyPasswordResetCode(oobCode));
-    } catch (error) {
+      setEmail(await verifyPasswordResetCode(firebase.auth, oobCode));
+    } catch {
       setError(true);
-      notification.error(error.message);
+      notification.error(
+        'Your password reset link is invalid or expired. Please request another reset password link.',
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    verifyPasswordResetCode();
+    verifyPasswordResetCodeWrapper();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async ({ password }: FormData) => {
     setLoading(true);
     try {
-      await firebase.auth.confirmPasswordReset(oobCode!, password);
+      await confirmPasswordReset(firebase.auth, oobCode!, password);
       notification.success(`Password set, logging in...`);
-      await firebase.auth.signInWithEmailAndPassword(email!, password);
-    } catch (error) {
+      await signInWithEmailAndPassword(firebase.auth, email!, password);
+    } catch (error: any) {
       notification.error(error.message);
       setLoading(false);
     }

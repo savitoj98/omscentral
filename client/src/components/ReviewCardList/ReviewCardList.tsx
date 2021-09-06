@@ -1,6 +1,7 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { logEvent } from 'firebase/analytics';
 import React, { useContext } from 'react';
 import Link from 'src/components/Link';
 import { paths } from 'src/constants';
@@ -41,7 +42,7 @@ const ReviewCardList: React.FC<Props> = ({
 
   const handleDeepLinkCopy = (id: string) => {
     notification.success('Link copied to clipboard.');
-    firebase.analytics.logEvent('share', {
+    logEvent(firebase.analytics, 'share', {
       content_type: 'review',
       content_id: id,
       method: 'copy_deep_link',

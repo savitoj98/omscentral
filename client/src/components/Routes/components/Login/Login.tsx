@@ -12,7 +12,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import GoogleIcon from '@material-ui/icons/GTranslate';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import firebase from 'firebase/app';
+import { AuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from 'src/components/Button';
@@ -32,7 +32,7 @@ export type FormData = {
 interface Props {
   disabled?: boolean;
   onSubmit: (form: FormData) => void;
-  onSocialLogin: (provider: firebase.auth.AuthProvider) => void;
+  onSocialLogin: (provider: AuthProvider) => void;
 }
 
 const Login: React.FC<Props> = ({ disabled, onSubmit, onSocialLogin }) => {
@@ -44,7 +44,7 @@ const Login: React.FC<Props> = ({ disabled, onSubmit, onSocialLogin }) => {
   const social: {
     key: string;
     icon: JSX.Element;
-    provider: firebase.auth.AuthProvider;
+    provider: AuthProvider;
   }[] = [
     {
       key: 'facebook',

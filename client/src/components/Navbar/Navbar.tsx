@@ -1,3 +1,4 @@
+import { logEvent } from '@firebase/analytics';
 import AppBar from '@material-ui/core/AppBar';
 import { Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -34,13 +35,13 @@ const Navbar: React.FC = () => {
 
   const handleLogoutClick = async () => {
     await firebase.auth.signOut();
-    firebase.analytics.logEvent('logout');
+    logEvent(firebase.analytics, 'logout');
   };
 
   const handleSearchSubmit = (query: string) => {
     if (query) {
       history.push(paths.reviews({ query }));
-      firebase.analytics.logEvent('search', { search_term: query });
+      logEvent(firebase.analytics, 'search', { search_term: query });
     }
   };
 

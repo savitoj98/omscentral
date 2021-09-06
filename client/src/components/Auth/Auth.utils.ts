@@ -1,7 +1,7 @@
-import firebase from 'firebase/app';
+import { User } from 'firebase/auth';
 import { UserInputType } from 'src/graphql';
 
-export const toInput = (user: firebase.User): UserInputType => {
+export const toInput = (user: User): UserInputType => {
   const [providerData] = user.providerData;
 
   const email = user.email || providerData!.email || null;

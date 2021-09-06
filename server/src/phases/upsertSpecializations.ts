@@ -5,7 +5,7 @@ export const phase: PhaseFunction = async (app, next) => {
   try {
     await upsertSpecializations();
     next();
-  } catch (error) {
+  } catch (error: any) {
     next(error);
   }
 };

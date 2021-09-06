@@ -1,3 +1,4 @@
+import { logEvent } from '@firebase/analytics';
 import MaterialLink from '@material-ui/core/Link';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
@@ -19,7 +20,7 @@ const Link: React.FC<LinkProps & { to: string | null; onClick?: () => void }> =
       } else if (to === '') {
         history.goBack();
       } else if (/^http(s?):\/\//.test(to)) {
-        firebase.analytics.logEvent('screen_view', {
+        logEvent(firebase.analytics, 'screen_view', {
           app_name: 'external_link',
           firebase_screen: to,
           firebase_screen_class: 'Link',

@@ -1,3 +1,4 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FirebaseContext } from 'src/components/Firebase';
@@ -14,13 +15,14 @@ const RegisterContainer: React.FC = () => {
   const handleSubmit = async ({ email, password }: FormData) => {
     setLoading(true);
     try {
-      const { user } = await firebase.auth.createUserWithEmailAndPassword(
+      const { user } = await createUserWithEmailAndPassword(
+        firebase.auth,
         email,
         password,
       );
       notification.success(`Registered as ${user!.email}.`);
-    } catch (error) {
-      notification.error(error.message);
+    } catch {
+      notification.error('Invalid email and password combination.');
       setLoading(false);
     }
   };

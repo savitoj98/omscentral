@@ -7,7 +7,7 @@ import { upsertCourseMetrics } from '../functions';
 async function main(): Promise<void> {
   try {
     await upsertCourseMetrics();
-  } catch (error) {
+  } catch (error: any) {
     logger.error(error);
   }
 }

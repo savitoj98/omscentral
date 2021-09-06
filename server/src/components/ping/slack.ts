@@ -13,7 +13,7 @@ export const info = async (message: string): Promise<boolean> => {
       username: `Info (${appConfig.name}@${appConfig.environment})`,
     });
     return true;
-  } catch (error) {
+  } catch (error: any) {
     Sentry.captureException(error, { extra: { message } });
     return false;
   }

@@ -44,7 +44,7 @@ describe('given user is at Reviews page after publishing a review', () => {
     });
 
     it(`then navigates to Update Review page`, () => {
-      cy.url().should('match', /\/review\/-\w+$/);
+      cy.url().should('match', /\/review\/(-|\w)+$/);
     });
 
     it(`then displays the Review in update mode`, () => {
