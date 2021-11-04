@@ -6,6 +6,7 @@ export * from './getUser';
 export * from './indexReviews';
 export * from './insertReview';
 export * from './learnMore';
+export * from './reportReview';
 export * from './searchReviews';
 export * from './updateReview';
 export * from './updateUser';

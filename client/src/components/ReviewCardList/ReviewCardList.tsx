@@ -68,7 +68,7 @@ const ReviewCardList: React.FC<Props> = ({
                   review={review}
                   highlight={highlight}
                   deepLink={getDeepLink(review.id)}
-                  onDeepLinkCopy={() => handleDeepLinkCopy(review.id)}
+                  onCopyLinkClick={() => handleDeepLinkCopy(review.id)}
                 />
               </Grid>
             ))}
