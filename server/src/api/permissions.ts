@@ -32,6 +32,7 @@ export const permissions = shield(
       insertReview: isSignedIn,
       updateReview: isSignedIn,
       deleteReview: isSignedIn,
+      reportReview: isSignedIn,
       learnMore: isSignedIn,
     },
   },

@@ -286,6 +286,9 @@ type Mutation {
   "Soft-deletes a review record."
   deleteReview(id: String!): Review!
 
+  "Flags a review for review by admins."
+  reportReview(id: String!): Boolean!
+
   "Submits a Learn More inquiry."
   learnMore(input: LearnMoreInputType!): LearnMoreResponseType!
 }
