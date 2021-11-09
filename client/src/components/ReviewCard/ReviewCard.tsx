@@ -110,15 +110,17 @@ const ReviewCard: React.FC<Props> = ({
           </IconButton>
         </Tooltip>
       </CopyToClipboard>
-      <Tooltip title="Report questionable or inappropriate content">
-        <IconButton
-          color="inherit"
-          onClick={handleReportClick}
-          disabled={loading}
-        >
-          <FlagIcon />
-        </IconButton>
-      </Tooltip>
+      {auth.authenticated && (
+        <Tooltip title="Report questionable or inappropriate content">
+          <IconButton
+            color="inherit"
+            onClick={handleReportClick}
+            disabled={loading}
+          >
+            <FlagIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </>
   );
 
