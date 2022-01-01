@@ -33,7 +33,6 @@ export const permissions = shield(
       updateReview: isSignedIn,
       deleteReview: isSignedIn,
       reportReview: isSignedIn,
-      learnMore: isSignedIn,
     },
   },
   {
