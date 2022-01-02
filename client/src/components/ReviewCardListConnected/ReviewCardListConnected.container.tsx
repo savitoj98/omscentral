@@ -8,7 +8,7 @@ import useQueryParams from 'src/core/hooks/useQueryParams';
 import asArray from 'src/core/utils/asArray';
 import useSession from 'src/core/utils/useSessionStorage';
 import { ReviewsQueryVariables, useReviewsQuery } from 'src/graphql';
-import { ReviewsQuery, useReportReviewMutation } from 'src/graphql';
+import { useReportReviewMutation } from 'src/graphql';
 
 import { FirebaseContext } from '../Firebase';
 import ReviewCardListConnected from './ReviewCardListConnected';
