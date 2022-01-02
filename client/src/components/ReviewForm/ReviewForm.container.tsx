@@ -12,7 +12,6 @@ import {
   useUpdateReviewMutation,
 } from 'src/graphql';
 
-import { AuthContext } from '../Auth';
 import { FirebaseContext } from '../Firebase';
 import { NotificationContext } from '../Notification';
 import ReviewForm from './ReviewForm';
@@ -25,13 +24,8 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
   const firebase = useContext(FirebaseContext);
   const notification = useContext(NotificationContext)!;
   const history = useHistory();
-  const auth = useContext(AuthContext);
 
-  const mode = !review
-    ? 'make'
-    : auth.user?.uid === review.author_id
-    ? 'edit'
-    : 'view';
+  const mode = !review ? 'make' : review.is_mine ? 'edit' : 'view';
 
   const [courses, semesters] = [useCoursesQuery(), useSemestersQuery()];
 
@@ -47,14 +41,10 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
 
   const handleSubmit = async (review: ReviewInputType) => {
     try {
-      const author_id = auth.user!.uid;
       if (mode === 'make') {
         const result = await insert({
           variables: {
-            review: {
-              ...review,
-              author_id,
-            },
+            review,
           },
         });
 
@@ -67,7 +57,7 @@ const ReviewFormContainer: React.FC<Props> = ({ review }) => {
 
         history.push(paths.course(review.course_id));
       } else if (mode === 'edit') {
-        await update({ variables: { review: { ...review, author_id } } });
+        await update({ variables: { review } });
 
         logEvent(firebase.analytics, 'update_item', {
           content_type: 'review',

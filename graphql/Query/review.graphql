@@ -1,7 +1,7 @@
 query review($id: String!) {
   review(id: $id) {
     id
-    author_id
+    is_mine
     course {
       id
       name
@@ -10,6 +10,10 @@ query review($id: String!) {
       id
       name
       season
+    }
+    reports {
+      id
+      is_mine
     }
     difficulty
     rating

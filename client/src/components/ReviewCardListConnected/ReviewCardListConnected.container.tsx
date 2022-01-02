@@ -1,13 +1,16 @@
 import * as sentry from '@sentry/browser';
+import { logEvent } from 'firebase/analytics';
 import qs from 'query-string';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { QueryParam, ReviewSortKey as SortKey } from 'src/core';
 import useQueryParams from 'src/core/hooks/useQueryParams';
 import asArray from 'src/core/utils/asArray';
 import useSession from 'src/core/utils/useSessionStorage';
 import { ReviewsQueryVariables, useReviewsQuery } from 'src/graphql';
+import { ReviewsQuery, useReportReviewMutation } from 'src/graphql';
 
+import { FirebaseContext } from '../Firebase';
 import ReviewCardListConnected from './ReviewCardListConnected';
 
 interface Props {
@@ -23,6 +26,7 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
 }) => {
   const history = useHistory();
   const location = useLocation();
+  const firebase = useContext(FirebaseContext);
 
   const { course, semester, difficulty, sort } = useQueryParams<{
     [QueryParam.Course]: string[];
@@ -40,7 +44,7 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   const [paginate, setPaginate] = useState(pagination);
   const [limit, setLimit] = useSession('rcl:l', paginate ? 10 : 10e6);
 
-  const reviews = useReviewsQuery({
+  const reviewsQ = useReviewsQuery({
     variables: {
       ...(variables || {}),
       limit,
@@ -53,14 +57,14 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   });
 
   const handleLoadMore = async () => {
-    if (reviews.loading) {
+    if (reviewsQ.loading) {
       return;
     }
 
     try {
-      await reviews.fetchMore({
+      await reviewsQ.fetchMore({
         variables: {
-          offset: reviews.data!.reviews!.length,
+          offset: reviewsQ.data!.reviews!.length,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (fetchMoreResult?.reviews?.length) {
@@ -80,10 +84,21 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
         level: sentry.Severity.Error,
         extra: {
           ...variables,
-          last_offset: reviews.data?.reviews?.length,
+          last_offset: reviewsQ.data?.reviews?.length,
         },
       });
     }
+  };
+
+  const [reportReview, reportReviewM] = useReportReviewMutation();
+
+  const handleReportClick = async (id: string) => {
+    await reportReview({ variables: { id } });
+    logEvent(firebase.analytics, 'report_item', {
+      content_type: 'review',
+      content_id: id,
+    });
+    await reviewsQ.refetch();
   };
 
   const handleFilterChange =
@@ -131,8 +146,9 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
 
   return (
     <ReviewCardListConnected
-      loading={reviews.loading}
-      reviews={reviews.data?.reviews}
+      loading={reviewsQ.loading || reportReviewM.loading}
+      reviews={reviewsQ.data?.reviews}
+      onReportClick={handleReportClick}
       courseFilter={variables?.course_ids == null ? courseFilter : undefined}
       onCourseFilterChange={handleCourseFilterChange}
       semesterFilter={semesterFilter}
@@ -143,8 +159,8 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       onSortKeyChange={handleSortKeyChange}
       onLoadMore={
         paginate &&
-        reviews.data?.reviews?.length &&
-        reviews.data.reviews.length >= limit
+        reviewsQ.data?.reviews?.length &&
+        reviewsQ.data.reviews.length >= limit
           ? handleLoadMore
           : undefined
       }

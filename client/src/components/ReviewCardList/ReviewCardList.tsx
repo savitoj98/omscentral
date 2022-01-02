@@ -13,9 +13,12 @@ import { NotificationContext } from '../Notification';
 import Paper from '../Paper';
 import ReviewCard from '../ReviewCard';
 
+type Reviews = ReviewsQuery['reviews'];
+
 interface Props {
   loading?: boolean;
-  reviews?: ReviewsQuery['reviews'];
+  reviews?: Reviews;
+  onReportClick: (id: string) => void;
   highlight?: string;
   whenEmpty?: JSX.Element;
   before?: JSX.Element;
@@ -25,6 +28,7 @@ interface Props {
 const ReviewCardList: React.FC<Props> = ({
   loading,
   reviews,
+  onReportClick,
   highlight,
   whenEmpty = (
     <Typography>
@@ -40,7 +44,7 @@ const ReviewCardList: React.FC<Props> = ({
   const getDeepLink = (id: string): string =>
     `${location.protocol}//${location.host}${paths.review.update(id)}`;
 
-  const handleDeepLinkCopy = (id: string) => {
+  const handleLinkClick = (id: string) => {
     notification.success('Link copied to clipboard.');
     logEvent(firebase.analytics, 'share', {
       content_type: 'review',
@@ -68,7 +72,9 @@ const ReviewCardList: React.FC<Props> = ({
                   review={review}
                   highlight={highlight}
                   deepLink={getDeepLink(review.id)}
-                  onCopyLinkClick={() => handleDeepLinkCopy(review.id)}
+                  onLinkClick={() => handleLinkClick(review.id)}
+                  onReportClick={() => onReportClick(review.id)}
+                  disabled={loading}
                 />
               </Grid>
             ))}

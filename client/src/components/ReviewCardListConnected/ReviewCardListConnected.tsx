@@ -8,6 +8,7 @@ import Toolbar from './components/Toolbar';
 
 interface Props {
   reviews?: ReviewsQuery['reviews'];
+  onReportClick: (id: string) => void;
   courseFilter?: string[];
   onCourseFilterChange: (filter: string[]) => void;
   semesterFilter?: string[];
@@ -24,6 +25,7 @@ interface Props {
 
 const ReviewCardListConnected: React.FC<Props> = ({
   reviews,
+  onReportClick,
   courseFilter,
   onCourseFilterChange,
   semesterFilter,
@@ -40,6 +42,7 @@ const ReviewCardListConnected: React.FC<Props> = ({
   <ReviewCardList
     loading={loading}
     reviews={reviews}
+    onReportClick={onReportClick}
     highlight={highlight}
     before={
       <>

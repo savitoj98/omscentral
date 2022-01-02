@@ -125,21 +125,25 @@ type ReviewMeta {
   tests: Float
 }
 
+type ReviewReport {
+  id: String!
+  is_mine: Boolean!
+}
+
 """
 Someone's opinion/thoughts about some course offering.
 """
 type Review {
   "UUID."
   id: String!
-  # "The person who wrote the review."
-  # author: User!
-  author_id: String!
+  is_mine: Boolean!
   "The course for which the review was written."
   course: Course!
   course_id: String!
   "Semester when the course was taken."
   semester: Semester!
   semester_id: String!
+  reports: [ReviewReport!]!
   "How difficult did the author find the course?"
   difficulty: Int
   "How did the author feel about the course?"
@@ -229,8 +233,8 @@ type Query {
     order_by_desc: [String!]! = ["created"]
     offset: Int = 0
     limit: Int = 100
+    is_mine: Boolean = false
     course_ids: [String!]! = []
-    author_ids: [String!]! = []
     semester_ids: [String!]! = []
     difficulties: [Int!]! = []
     query: String = ""
@@ -239,7 +243,6 @@ type Query {
 
 input ReviewInputType {
   id: String!
-  author_id: String!
   course_id: String!
   semester_id: String!
   difficulty: Int!
@@ -257,14 +260,6 @@ input UserInputType {
   program_id: String
   specialization_id: String
   last_signed_in: Float!
-}
-
-input LearnMoreInputType {
-  message: String!
-}
-
-type LearnMoreResponseType {
-  success: Boolean!
 }
 
 """
@@ -288,7 +283,4 @@ type Mutation {
 
   "Flags a review for review by admins."
   reportReview(id: String!): Boolean!
-
-  "Submits a Learn More inquiry."
-  learnMore(input: LearnMoreInputType!): LearnMoreResponseType!
 }

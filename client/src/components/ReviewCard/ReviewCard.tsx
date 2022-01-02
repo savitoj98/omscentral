@@ -9,35 +9,43 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import EditIcon from '@material-ui/icons/Edit';
-import FlagIcon from '@material-ui/icons/Flag';
 import LinkIcon from '@material-ui/icons/Link';
-import React, { useContext } from 'react';
+import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Markdown from 'react-markdown';
 import { useHistory } from 'react-router';
 import { paths, reviewMeta } from 'src/constants';
 import Season from 'src/core/components/Season';
 import { ReviewsQuery } from 'src/graphql';
-import { useReportReviewMutation } from 'src/graphql';
 
-import { AuthContext } from '../Auth';
 import Grow from '../Grow';
 import Link from '../Link';
-import { NotificationContext } from '../Notification/Notification';
+import ReportToggleIconButton from './components/ReportToggleIconButton';
 import { useStyles } from './ReviewCard.styles';
 import applyHighlighting from './utils/applyHighlighting';
 
+type Review = ReviewsQuery['reviews'][0];
+
 interface Props {
-  review: ReviewsQuery['reviews'][0];
+  review: Review;
   highlight?: string;
   deepLink: string;
-  onCopyLinkClick: () => void;
+  onLinkClick: () => void;
+  onReportClick: () => void;
+  disabled?: boolean;
 }
 
 const ReviewCard: React.FC<Props> = ({
-  review: {
+  review,
+  highlight,
+  deepLink,
+  onLinkClick,
+  onReportClick,
+  disabled = false,
+}) => {
+  const {
     id,
-    author_id,
+    is_mine,
     course,
     semester,
     difficulty: d,
@@ -45,17 +53,11 @@ const ReviewCard: React.FC<Props> = ({
     rating: r,
     body,
     created,
-  },
-  highlight,
-  deepLink,
-  onCopyLinkClick,
-}) => {
+  } = review;
+
   const classes = useStyles();
   const xs = useMediaQuery<Theme>((theme) => theme.breakpoints.down('xs'));
   const history = useHistory();
-  const auth = useContext(AuthContext);
-  const notification = useContext(NotificationContext);
-  const [reportReview, { loading }] = useReportReviewMutation();
 
   const avatar = xs ? null : <Season season={semester.season} />;
 
@@ -87,40 +89,31 @@ const ReviewCard: React.FC<Props> = ({
   xs && chips.pop() && chips.pop();
 
   const handleEditClick = () => history.push(paths.review.update(id));
-  const handleCopyLinkClick = () => setTimeout(onCopyLinkClick, 0);
-  const handleReportClick = async () => {
-    await reportReview({ variables: { id } });
-    notification?.success('Thanks for reporting this review.');
-  };
+  const handleLinkClick = () => setTimeout(onLinkClick, 0);
 
-  const action = xs ? null : auth.user?.uid === author_id ? (
+  const action = xs ? null : is_mine ? (
     <IconButton
       onClick={handleEditClick}
       color="inherit"
       data-cy="review_card:edit_button"
+      disabled={disabled}
     >
       <EditIcon />
     </IconButton>
   ) : (
     <>
-      <CopyToClipboard text={deepLink} onCopy={handleCopyLinkClick}>
+      <CopyToClipboard text={deepLink} onCopy={handleLinkClick}>
         <Tooltip title="Copy link">
           <IconButton color="inherit">
             <LinkIcon />
           </IconButton>
         </Tooltip>
       </CopyToClipboard>
-      {auth.authenticated && (
-        <Tooltip title="Report questionable or inappropriate content">
-          <IconButton
-            color="inherit"
-            onClick={handleReportClick}
-            disabled={loading}
-          >
-            <FlagIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      <ReportToggleIconButton
+        review={review}
+        onClick={onReportClick}
+        disabled={disabled}
+      />
     </>
   );
 

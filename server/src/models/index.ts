@@ -6,6 +6,7 @@ export * from './Migration';
 export * from './MigrationLock';
 export * from './Program';
 export * from './Review';
+export * from './ReviewReport';
 export * from './Semester';
 export * from './Session';
 export * from './Specialization';

@@ -76,7 +76,7 @@ const ReviewForm: React.FC<Props> = ({
   }
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="md">
       <White />
       <Paper>
         <Avatar className={classes.avatar}>
