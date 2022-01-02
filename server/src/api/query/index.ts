@@ -2,6 +2,7 @@ import { QueryResolvers } from '../../graphql';
 import { resolver as config } from './config';
 import { resolver as course } from './course';
 import { resolver as courses } from './courses';
+import { resolver as courseSeries } from './courseSeries';
 import { resolver as programs } from './programs';
 import { resolver as review } from './review';
 import { resolver as reviews } from './reviews';
@@ -13,6 +14,7 @@ export const Query: QueryResolvers = {
   config,
   course,
   courses,
+  courseSeries,
   programs,
   review,
   reviews,
