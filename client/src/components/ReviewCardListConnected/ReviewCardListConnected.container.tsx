@@ -98,7 +98,6 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       content_type: 'review',
       content_id: id,
     });
-    await reviewsQ.refetch();
   };
 
   const handleFilterChange =
