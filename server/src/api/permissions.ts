@@ -18,6 +18,7 @@ export const permissions = shield(
       config: allow,
       course: allow,
       courses: allow,
+      courseSeries: allow,
       programs: allow,
       review: allow,
       reviews: allow,
