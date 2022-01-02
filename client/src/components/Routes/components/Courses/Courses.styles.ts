@@ -5,4 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: theme.spacing(0, 0, 2, 0),
   },
+  toggles: {
+    marginTop: theme.spacing(2),
+  },
 }));
