@@ -1,7 +1,7 @@
 mutation insertReview($review: ReviewInputType!) {
   insertReview(review: $review) {
     id
-    author_id
+    is_mine
     course_id
     semester_id
     difficulty

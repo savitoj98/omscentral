@@ -2,12 +2,13 @@ import { badRequest, forbidden } from '@hapi/boom';
 
 import { insertReview } from '../../functions';
 import { MutationResolvers } from '../../graphql';
+import { mapReview } from '../../mappers';
 import { reviewSchema } from '../schema';
 
 type Resolver = MutationResolvers['insertReview'];
 
-export const resolver: Resolver = async (_, { review }, { req }) => {
-  if (review.author_id !== req.userId) {
+export const resolver: Resolver = async (_, { review }, { user }) => {
+  if (user == null) {
     throw forbidden();
   }
 
@@ -16,5 +17,5 @@ export const resolver: Resolver = async (_, { review }, { req }) => {
     throw badRequest(error.message);
   }
 
-  return insertReview(value);
+  return mapReview(await insertReview(value, user), user);
 };

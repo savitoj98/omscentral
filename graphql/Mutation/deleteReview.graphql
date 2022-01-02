@@ -1,7 +1,7 @@
 mutation deleteReview($id: String!) {
   deleteReview(id: $id) {
     id
-    author_id
+    is_mine
     course_id
     semester_id
     difficulty

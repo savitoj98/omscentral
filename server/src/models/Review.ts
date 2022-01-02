@@ -3,6 +3,7 @@ import { QueryBuilder } from 'objection';
 import { Difficulty, Rating } from '../enums';
 import { Course } from './Course';
 import { Domain } from './Domain';
+import { ReviewReport } from './ReviewReport';
 import { Semester } from './Semester';
 import { User } from './User';
 import { withDates } from './utils';
@@ -31,6 +32,7 @@ export class Review extends withDates(Domain) {
   author!: User;
   course!: Course;
   semester!: Semester;
+  reports!: ReviewReport[];
 
   static tableName = 'omscentral_review';
 
@@ -59,6 +61,14 @@ export class Review extends withDates(Domain) {
         to: `${Semester.tableName}.id`,
       },
     },
+    reports: {
+      relation: Domain.HasManyRelation,
+      modelClass: ReviewReport,
+      join: {
+        from: `${Review.tableName}.id`,
+        to: `${ReviewReport.tableName}.review_id`,
+      },
+    },
   };
 
   static jsonAttributes = ['meta'];
@@ -74,6 +84,7 @@ export class Review extends withDates(Domain) {
       course: Course.jsonSchema,
       semester_id: { type: 'string' },
       semester: Semester.jsonSchema,
+      reports: { type: 'array', items: ReviewReport.jsonSchema },
       difficulty: { type: ['integer', 'null'] },
       rating: { type: ['integer', 'null'] },
       workload: { type: ['number', 'null'], minimum: 0 },
@@ -87,6 +98,7 @@ export class Review extends withDates(Domain) {
     Review.query().withGraphFetched(`[
       author.[program,specialization.[program]],
       course.[metric],
-      semester
+      semester,
+      reports
     ]`);
 }

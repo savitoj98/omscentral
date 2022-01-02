@@ -2,8 +2,8 @@ query reviews(
   $order_by_desc: [String!]! = ["created"]
   $offset: Int = 0
   $limit: Int = 100
+  $is_mine: Boolean = false
   $course_ids: [String!]! = []
-  $author_ids: [String!]! = []
   $semester_ids: [String!]! = []
   $difficulties: [Int!]! = []
   $query: String = ""
@@ -12,14 +12,14 @@ query reviews(
     order_by_desc: $order_by_desc
     offset: $offset
     limit: $limit
+    is_mine: $is_mine
     course_ids: $course_ids
-    author_ids: $author_ids
     semester_ids: $semester_ids
     difficulties: $difficulties
     query: $query
   ) {
     id
-    author_id
+    is_mine
     course {
       id
       name
@@ -29,6 +29,10 @@ query reviews(
       id
       name
       season
+    }
+    reports {
+      id
+      is_mine
     }
     difficulty
     rating
