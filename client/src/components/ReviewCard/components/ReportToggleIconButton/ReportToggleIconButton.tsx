@@ -72,7 +72,7 @@ const getConfig = (
     return {
       icon: <ReportOffIcon />,
       tooltip: 'Undo',
-      message: 'Review report undone.',
+      message: 'Review is no longer flagged as inappropriate.',
     };
   }
 
