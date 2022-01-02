@@ -1,11 +1,13 @@
 import { logEvent } from '@firebase/analytics';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Alert from '@material-ui/lab/Alert';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { FirebaseContext } from 'src/components/Firebase/Firebase';
+import Link from 'src/components/Link';
 import Loading from 'src/components/Loading';
 import { NotificationContext } from 'src/components/Notification';
 import Paper from 'src/components/Paper';
@@ -18,6 +20,7 @@ import { Course, Semester, Specialization } from 'src/graphql';
 
 import Requirement from './components/Requirement';
 import Table from './components/Table';
+import Toggle from './components/Toggle';
 import Toolbar from './components/Toolbar';
 import { useStyles } from './Courses.styles';
 
@@ -28,6 +31,10 @@ interface Props {
   onSpecializationChange: (changeTo: Nullable<Specialization>) => void;
   specialization?: Specialization;
   specializations?: Specialization[];
+  isUnreviewedShown: boolean;
+  onIsUnreviewedShownChange: (isShown: boolean) => void;
+  isDeprecatedShown: boolean;
+  onIsDeprecatedShownChange: (isShown: boolean) => void;
 }
 
 const Courses: React.FC<Props> = ({
@@ -37,6 +44,10 @@ const Courses: React.FC<Props> = ({
   onSpecializationChange,
   specialization,
   specializations,
+  isUnreviewedShown,
+  onIsUnreviewedShownChange,
+  isDeprecatedShown,
+  onIsDeprecatedShownChange,
 }) => {
   const classes = useStyles();
   const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
@@ -100,8 +111,16 @@ const Courses: React.FC<Props> = ({
         />
         {specialization != null && (
           <Alert severity="warning" className={classes.alert}>
-            Refer to degreeaudit.gatech.edu for the definitive list of courses
-            required for this specialization.
+            Refer to{' '}
+            <Link to="https://degreeaudit.gatech.edu">
+              degreeaudit.gatech.edu
+            </Link>{' '}
+            for the definitive list of courses required for this specialization.
+            Please report any issues or inaccuracies{' '}
+            <Link to="https://github.com/OMSCentral/omscentral/issues">
+              here
+            </Link>
+            .
           </Alert>
         )}
         {specialization ? (
@@ -127,6 +146,22 @@ const Courses: React.FC<Props> = ({
             size="small"
           />
         )}
+        <Grid container spacing={2} className={classes.toggles}>
+          <Grid item sm={12}>
+            <Toggle
+              label="Show unreviewed?"
+              value={isUnreviewedShown}
+              onChange={onIsUnreviewedShownChange}
+            />
+          </Grid>
+          <Grid item sm={12}>
+            <Toggle
+              label="Show deprecated?"
+              value={isDeprecatedShown}
+              onChange={onIsDeprecatedShownChange}
+            />
+          </Grid>
+        </Grid>
       </Paper>
     </Container>
   );
