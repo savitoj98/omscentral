@@ -16,18 +16,24 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
       - name: Use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install
         run: npm ci
+
       - name: Build GraphQL
         run: npm run build:graphql
+
       - name: Build Server
         run: npm run build:server
+
       - name: Build Client
         run: npm run build:client
+
       - name: Test
         run: npm test
