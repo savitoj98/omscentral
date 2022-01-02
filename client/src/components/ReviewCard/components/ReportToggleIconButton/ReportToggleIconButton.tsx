@@ -4,10 +4,9 @@ import ReportIcon from '@material-ui/icons/Report';
 import ReportOffIcon from '@material-ui/icons/ReportOff';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React, { useContext } from 'react';
+import { AuthContext } from 'src/components/Auth';
+import { NotificationContext } from 'src/components/Notification';
 import { ReviewsQuery } from 'src/graphql';
-
-import { AuthContext } from '../../../Auth';
-import { NotificationContext } from '../../../Notification';
 
 type Review = ReviewsQuery['reviews'][0];
 
