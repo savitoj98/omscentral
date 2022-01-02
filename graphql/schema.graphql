@@ -196,6 +196,14 @@ type User {
   updated: Float
 }
 
+type CourseSeriesItem {
+  semester_id: String!
+  count: Int!
+  avg_difficulty: Float!
+  avg_rating: Float!
+  avg_workload: Float!
+}
+
 """
 API queries.
 """
@@ -209,6 +217,9 @@ type Query {
     semester_ids: [String!]! = []
     difficulties: [Int!]! = []
   ): Course!
+
+  "Fetches a course's aggregate stats grouped and ordered by semesters."
+  courseSeries(id: String!): [CourseSeriesItem!]!
 
   "Fetches all courses."
   courses: [Course!]!
