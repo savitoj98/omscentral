@@ -29,5 +29,5 @@ const notify = async (review: Review, didReport: boolean): Promise<void> => {
   const deepLink = `https://${firebaseConfig.projectId}.firebaseapp.com/review/${review.id}`;
   const reportCount = review.reports.length + (didReport ? +1 : -1);
 
-  await ping.info(`${deepLink} [${reportCount}]`);
+  await ping.info(`\`\`\`${deepLink} [${reportCount}]\`\`\``);
 };
