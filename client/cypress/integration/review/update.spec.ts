@@ -13,7 +13,6 @@ describe('given user is at Update Review page', () => {
   beforeEach(() => {
     reviewInitial = {
       id: '',
-      author_id: '',
       course_id: '6400',
       semester_id: 'Fall 2019',
       difficulty: 3,
@@ -47,7 +46,6 @@ describe('given user is at Update Review page', () => {
     beforeEach(() => {
       reviewUpdated = {
         id: '',
-        author_id: '',
         course_id: '6440',
         semester_id: 'Spring 2020',
         difficulty: 4,

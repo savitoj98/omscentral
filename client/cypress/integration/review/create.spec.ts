@@ -35,7 +35,6 @@ describe('given user is at Create Review page', () => {
     beforeEach(() => {
       review = {
         id: '',
-        author_id: '',
         course_id: '6400',
         semester_id: 'Fall 2019',
         difficulty: 3,
