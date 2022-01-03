@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import React from 'react';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { reviewMeta } from 'src/constants';
-import Typeahead from 'src/core/components/Typeahead';
 import { Course, ReviewInputType, ReviewQuery, Semester } from 'src/graphql';
 
 import Button from '../Button';
@@ -38,7 +38,7 @@ const ReviewForm: React.FC<Props> = ({
   const classes = useStyles();
 
   const toString = (value: any): string => (value || '').toString();
-  const { handleSubmit, register, errors, watch, setValue } = useForm<
+  const { handleSubmit, register, errors, setValue } = useForm<
     Omit<ReviewInputType, 'id'>
   >({
     defaultValues: {
@@ -51,7 +51,9 @@ const ReviewForm: React.FC<Props> = ({
     },
   });
 
-  const { course_id } = watch();
+  useEffect(() => {
+    register('course_id', { required: true });
+  }, [register]);
 
   const [title, action] =
     mode === 'make'
@@ -103,27 +105,32 @@ const ReviewForm: React.FC<Props> = ({
               </Grid>
             )}
             <Grid item xs={12}>
-              <Typeahead
+              <Autocomplete
                 data-cy="review:course_id"
                 id="course_id"
-                name="course_id"
-                label="Course"
+                fullWidth
                 noOptionsText="No matching courses..."
                 disabled={disabled || mode === 'view'}
                 options={data.courses}
                 getOptionLabel={({ id, name }: Course) => `${id} ${name}`}
-                value={course_id}
-                onChange={(e, c?: Course) => setValue('course_id', c?.id || '')}
                 renderOption={({ id, name }: Course) => (
                   <Typography key={id} noWrap>
                     {id} {name}
                   </Typography>
                 )}
-                required
-                inputRef={register({ required: true })}
-                error={Boolean(errors.course_id)}
-                helperText={errors.course_id?.message}
-                variant="outlined"
+                onChange={(e, course: Course | null) => {
+                  setValue('course_id', course?.id);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Course"
+                    variant="outlined"
+                    required
+                    error={Boolean(errors?.course_id)}
+                    helperText={errors?.course_id?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>

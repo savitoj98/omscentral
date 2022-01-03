@@ -7,6 +7,7 @@ import Landing from './components/Landing';
 import Maintenance from './components/Maintenance';
 import Reviews from './components/Reviews';
 import Route from './components/Route';
+import Trends from './components/Trends';
 
 interface Route {
   path: string;
@@ -36,6 +37,10 @@ const routes: Route[] = [
   {
     path: paths.courses,
     component: Courses,
+  },
+  {
+    path: paths.trends,
+    component: Trends,
   },
   {
     path: paths.course(),

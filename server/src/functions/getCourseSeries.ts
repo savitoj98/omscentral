@@ -1,6 +1,8 @@
+import { keyBy } from 'lodash';
+
 import { unknownSemester } from '../constants';
 import { CourseSeriesItem } from '../graphql';
-import { Course } from '../models';
+import { Course, Semester } from '../models';
 
 const sql = `
 with stats as (
@@ -35,9 +37,20 @@ order by
   s.id
 `;
 
+type Row = Omit<CourseSeriesItem, 'semester'> & { semester_id: string };
+
 export const getCourseSeries = async (
   course: Course,
-): Promise<CourseSeriesItem[]> =>
-  Course.knex()
-    .raw(sql, [course.id, unknownSemester.id])
-    .then(({ rows }) => rows as CourseSeriesItem[]);
+): Promise<CourseSeriesItem[]> => {
+  const [semesters, rows] = await Promise.all([
+    Semester.query().then((semesters) => keyBy(semesters, 'id')),
+    Course.knex()
+      .raw(sql, [course.id, unknownSemester.id])
+      .then(({ rows }) => rows as Row[]),
+  ]);
+
+  return rows.map(({ semester_id, ...rest }) => ({
+    ...rest,
+    semester: semesters[semester_id],
+  }));
+};
