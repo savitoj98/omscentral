@@ -81,7 +81,7 @@ Cypress.Commands.add('omsGoToUpdateReview', () => {
 });
 
 Cypress.Commands.add('omsPopulateReview', (review) => {
-  cy.dataCy('review:course_id').type(`${review.course_id}\n`);
+  cy.dataCy('review:course_id').type(`${review.course_id}{downarrow}{enter}`);
   cy.dataCy('review:semester_id').find('select').select(review.semester_id);
   cy.dataCy('review:difficulty')
     .find('select')
@@ -156,6 +156,7 @@ Cypress.Commands.add('omsRegister', (email, password) => {
 });
 
 Cypress.Commands.add('omsLogout', () => {
-  cy.dataCy('logout').click();
+  cy.dataCy('user_menu_icon').click();
+  cy.dataCy('user_menu_logout').click();
   return cy.wait(WAIT_MS);
 });

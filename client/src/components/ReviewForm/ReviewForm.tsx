@@ -108,7 +108,6 @@ const ReviewForm: React.FC<Props> = ({
             )}
             <Grid item xs={12}>
               <Autocomplete
-                data-cy="review:course_id"
                 id="course_id"
                 fullWidth
                 noOptionsText="No matching courses..."
@@ -127,6 +126,7 @@ const ReviewForm: React.FC<Props> = ({
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    data-cy="review:course_id"
                     label="Course"
                     variant="outlined"
                     required
