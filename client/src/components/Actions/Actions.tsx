@@ -8,7 +8,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { paths, urls } from 'src/constants';
 
-import { AuthContext } from '../Auth';
+import { NotificationContext } from '../Notification';
 import { useStyles } from './Actions.styles';
 
 enum ActionKey {
@@ -45,8 +45,8 @@ const actions: Action[] = [
 
 const Actions: React.FC = () => {
   const classes = useStyles();
-  const auth = useContext(AuthContext);
   const history = useHistory();
+  const notification = useContext(NotificationContext)!;
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -57,9 +57,14 @@ const Actions: React.FC = () => {
     setOpen(false);
   };
 
-  const handleClick = (key: ActionKey) => () => {
+  const handleClick = (action: Action) => () => {
+    if (action.auth) {
+      notification.warning('You must login first to publish reviews.');
+      return history.push(paths.login);
+    }
+
     setOpen(false);
-    switch (key) {
+    switch (action.key) {
       case ActionKey.CreateReview:
         return history.push(paths.review.create);
       case ActionKey.OpenTableau:
@@ -70,10 +75,6 @@ const Actions: React.FC = () => {
         return;
     }
   };
-
-  const available = actions.filter(
-    (action) => !action.auth || auth.authenticated,
-  );
 
   return (
     <div className={classes.root}>
@@ -86,13 +87,13 @@ const Actions: React.FC = () => {
         onOpen={handleOpen}
         onClose={handleClose}
       >
-        {available.map(({ key, icon, name }) => (
+        {actions.map((action) => (
           <SpeedDialAction
-            data-cy={`action:${key}`}
-            key={key}
-            icon={icon}
-            tooltipTitle={name}
-            onClick={handleClick(key)}
+            data-cy={`action:${action.key}`}
+            key={action.key}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={handleClick(action)}
           />
         ))}
       </SpeedDial>
