@@ -38,7 +38,7 @@ const ReviewForm: React.FC<Props> = ({
   const classes = useStyles();
 
   const toString = (value: any): string => (value || '').toString();
-  const { handleSubmit, register, errors, setValue } = useForm<
+  const { handleSubmit, register, errors, watch, setValue } = useForm<
     Omit<ReviewInputType, 'id'>
   >({
     defaultValues: {
@@ -54,6 +54,8 @@ const ReviewForm: React.FC<Props> = ({
   useEffect(() => {
     register('course_id', { required: true });
   }, [register]);
+
+  const { course_id } = watch();
 
   const [title, action] =
     mode === 'make'
@@ -118,6 +120,7 @@ const ReviewForm: React.FC<Props> = ({
                     {id} {name}
                   </Typography>
                 )}
+                value={data.courses.find(({ id }) => id === course_id)}
                 onChange={(e, course: Course | null) => {
                   setValue('course_id', course?.id);
                 }}
