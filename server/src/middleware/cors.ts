@@ -23,7 +23,7 @@ export const middleware = (): RequestHandler =>
       return cb(null, { origin: true });
     }
 
-    logger.debug('middleware(cors):', { headers });
+    logger.debug('middleware(cors):', { origin: headers['origin'] });
 
     return cb(new Error('CORS'), { origin: false });
   });
