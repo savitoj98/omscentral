@@ -127,5 +127,5 @@ const divide = (
   denominator: number,
 ): number | undefined =>
   numerator != null && denominator !== 0
-    ? Math.floor(numerator / denominator)
+    ? Math.round((numerator / denominator) * 100) / 100
     : undefined;
