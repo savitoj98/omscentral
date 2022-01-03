@@ -1,6 +1,11 @@
 query courseSeries($id: String!) {
   courseSeries(id: $id) {
-    semester_id
+    semester {
+      id
+      year
+      season
+      name
+    }
     count
     avg_difficulty
     avg_rating

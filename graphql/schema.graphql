@@ -197,7 +197,7 @@ type User {
 }
 
 type CourseSeriesItem {
-  semester_id: String!
+  semester: Semester!
   count: Int!
   avg_difficulty: Float!
   avg_rating: Float!

@@ -3,6 +3,7 @@ import qs from 'query-string';
 export const paths = {
   course: (id?: string): string => (id ? `/course/${id}` : '/course/:id'),
   courses: '/courses',
+  trends: '/trends',
   error: (code?: number): string => (code ? `/error/${code}` : '/error/:code'),
   landing: '/',
   login: '/login',

@@ -54,6 +54,7 @@ const Navbar: React.FC = () => {
           </Typography>
           <NavbarButton path={paths.courses}>Courses</NavbarButton>
           {!xs && <NavbarButton path={paths.reviews()}>Reviews</NavbarButton>}
+          {!xs && <NavbarButton path={paths.trends}>Trends</NavbarButton>}
           {!xs && (
             <SearchInput
               value={query}

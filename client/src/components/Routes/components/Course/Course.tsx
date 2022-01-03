@@ -1,18 +1,23 @@
 import React from 'react';
+import Metrics from 'src/components/Metrics';
 import ReviewCardListConnected from 'src/components/ReviewCardListConnected';
-import { Course as CourseType } from 'src/graphql';
+import { Course as GraphQLCourse } from 'src/graphql';
 
-import Metrics from './components/Metrics';
+import { useStyles } from './Course.styles';
 
 interface Props {
-  course: CourseType;
+  course: GraphQLCourse;
 }
 
-const Course: React.FC<Props> = ({ course }) => (
-  <ReviewCardListConnected
-    variables={{ course_ids: [course.id] }}
-    before={<Metrics course={course} />}
-  />
-);
+const Course: React.FC<Props> = ({ course }) => {
+  const classes = useStyles();
+
+  return (
+    <ReviewCardListConnected
+      variables={{ course_ids: [course.id] }}
+      before={<Metrics className={classes.metrics} course={course} />}
+    />
+  );
+};
 
 export default Course;
