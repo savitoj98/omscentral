@@ -44,7 +44,7 @@
     "graphql-tag": "2.12.6",
     "html-minifier": "4.0.0",
     "joi": "17.5.0",
-    "knex": "0.21.x",
+    "knex": "0.95.14",
     "lodash": "4.17.21",
     "lusca": "1.7.0",
     "moment": "2.29.1",
