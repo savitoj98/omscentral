@@ -209,7 +209,7 @@ API queries.
 """
 type Query {
   "Fetches a config record by ID."
-  config(id: String!): Config!
+  config(id: String!): Config
 
   "Fetches a course."
   course(
