@@ -58,7 +58,7 @@ const Trends: React.FC<Props> = ({
                     data={series}
                     title="Avg. Workload"
                     field="avg_workload"
-                    max={nextMultipleOf(max(series, 'avg_workload'), 25)}
+                    max={nextMultipleOf(max(series, 'avg_workload'), 10)}
                     reference={course.metric?.reviews.workload.mean}
                   />
                 </Grid>
@@ -91,7 +91,7 @@ const Trends: React.FC<Props> = ({
                     data={series}
                     title="Reviews"
                     field="count"
-                    max={nextMultipleOf(max(series, 'count'), 50)}
+                    max={nextMultipleOf(max(series, 'count'), 10)}
                     reference={divide(
                       course.metric?.reviews.count,
                       series.length,
