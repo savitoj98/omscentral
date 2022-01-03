@@ -4,10 +4,9 @@ import { Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import LogoutIcon from '@material-ui/icons/ExitToApp';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { paths } from 'src/constants';
+import { paths, urls } from 'src/constants';
 import { QueryParam } from 'src/core';
 import useQueryParams from 'src/core/hooks/useQueryParams';
 
@@ -32,11 +31,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     setQuery(params.query || '');
   }, [params.query]);
-
-  const handleLogoutClick = async () => {
-    await firebase.auth.signOut();
-    logEvent(firebase.analytics, 'logout');
-  };
 
   const handleSearchSubmit = (query: string) => {
     if (query) {
@@ -63,24 +57,17 @@ const Navbar: React.FC = () => {
             />
           )}
           <Grow />
+          <Link to={urls.coffee} className={classes.coffee}>
+            ☕️
+          </Link>
+          <Link to={urls.bugs} className={classes.bugs}>
+            🐛
+          </Link>
           {auth.initializing ? null : auth.authenticated ? (
-            <NavbarButton
-              onClick={handleLogoutClick}
-              path={paths.login}
-              data-cy="logout"
-            >
-              {xs ? <LogoutIcon /> : 'Logout'}
-            </NavbarButton>
+            <UserMenu />
           ) : (
             <NavbarButton path={paths.login}>Login</NavbarButton>
           )}
-          {auth.initializing ? null : auth.authenticated && <UserMenu />}
-          <Link
-            to="https://buymeacoffee.com/omscentral"
-            className={classes.coffee}
-          >
-            ☕️
-          </Link>
         </Toolbar>
       </AppBar>
     </div>

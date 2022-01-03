@@ -1,6 +1,7 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
+import Loading from 'src/components/Loading';
 import Metrics from 'src/components/Metrics';
 import Paper from 'src/components/Paper';
 import { Nullable } from 'src/core';
@@ -48,6 +49,7 @@ const Trends: React.FC<Props> = ({
               <Metrics course={course} />
             </Grid>
           )}
+          {loading && <Loading />}
           {course != null && series != null && (
             <>
               {hasSomeValue(series, 'avg_workload') && (
