@@ -6,6 +6,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Alert from '@material-ui/lab/Alert';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
+import Banner from 'src/components/Banner';
 import { FirebaseContext } from 'src/components/Firebase/Firebase';
 import Link from 'src/components/Link';
 import Loading from 'src/components/Loading';
@@ -102,6 +103,7 @@ const Courses: React.FC<Props> = ({
   return (
     <Container component="main" maxWidth="xl" data-cy="courses">
       <Paper>
+        <Banner />
         <Toolbar
           specializations={specializations}
           specialization={specialization}
