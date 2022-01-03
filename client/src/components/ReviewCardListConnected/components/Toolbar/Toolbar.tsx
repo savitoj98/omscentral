@@ -25,7 +25,6 @@ export interface Props {
   sortKey?: SortKey;
   sortKeyOptions: Option<SortKey>[];
   onSortKeyChange: (key: SortKey) => void;
-  message?: string;
 }
 
 const Toolbar: React.FC<Props> = ({
@@ -41,7 +40,6 @@ const Toolbar: React.FC<Props> = ({
   sortKey,
   sortKeyOptions,
   onSortKeyChange,
-  message,
 }) => {
   const classes = useStyles();
 
@@ -82,8 +80,6 @@ const Toolbar: React.FC<Props> = ({
 
   return (
     <div className={classes.toolbar}>
-      {!!message && <Typography variant="body2">{message}</Typography>}
-
       <Grow />
 
       {courseFilterOptions.length > 0 && courseFilter != null && (

@@ -6,7 +6,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
-import { paths } from 'src/constants';
+import { paths, urls } from 'src/constants';
 
 import { AuthContext } from '../Auth';
 import { useStyles } from './Actions.styles';
@@ -63,9 +63,9 @@ const Actions: React.FC = () => {
       case ActionKey.CreateReview:
         return history.push(paths.review.create);
       case ActionKey.OpenTableau:
-        return window.open('https://tableau.gatech.edu');
+        return window.open(urls.tableau); // eslint-disable-line
       case ActionKey.ReportIssue:
-        return window.open('https://github.com/OMSCentral/omscentral/issues');
+        return window.open(urls.bugs); // eslint-disable-line
       default:
         return;
     }

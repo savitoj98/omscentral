@@ -11,7 +11,7 @@ import Link from 'src/components/Link';
 import Loading from 'src/components/Loading';
 import { NotificationContext } from 'src/components/Notification';
 import Paper from 'src/components/Paper';
-import { paths } from 'src/constants';
+import { paths, urls } from 'src/constants';
 import { Nullable } from 'src/core';
 import useSpecializationCourses from 'src/core/hooks/useSpecializationCourses';
 import useLocal from 'src/core/utils/useLocalStorage';
@@ -111,16 +111,10 @@ const Courses: React.FC<Props> = ({
         />
         {specialization != null && (
           <Alert severity="warning" className={classes.alert}>
-            Refer to{' '}
-            <Link to="https://degreeaudit.gatech.edu">
-              degreeaudit.gatech.edu
-            </Link>{' '}
+            Refer to <Link to={urls.degreeaudit}>degreeaudit.gatech.edu</Link>{' '}
             for the definitive list of courses required for this specialization.
             Please report any issues or inaccuracies{' '}
-            <Link to="https://github.com/OMSCentral/omscentral/issues">
-              here
-            </Link>
-            .
+            <Link to={urls.bugs}>here</Link>.
           </Alert>
         )}
         {specialization ? (

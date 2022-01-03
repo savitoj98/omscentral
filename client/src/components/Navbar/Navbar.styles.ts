@@ -50,6 +50,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   coffee: {
+    marginRight: theme.spacing(1),
+  },
+  bugs: {
     marginLeft: theme.spacing(1),
   },
 }));
