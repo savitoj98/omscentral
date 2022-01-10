@@ -5,7 +5,6 @@ import {
   BarSeries,
   Chart,
   LineSeries,
-  SplineSeries,
   Tooltip,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
@@ -54,7 +53,6 @@ const TrendsChart: React.FC<Props> = ({
         <ValueAxis tickSize={1} />
         {max != null && <ValueScale modifyDomain={() => [0, max]} />}
         <BarSeries name="bar" valueField={field} argumentField="x" />
-        <SplineSeries name="line" valueField={field} argumentField="x" />
         {reference != null && (
           <LineSeries
             name="reference"
