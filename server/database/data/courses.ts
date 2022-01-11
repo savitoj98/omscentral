@@ -96,9 +96,9 @@ export const courses: PMO<Course>[] = [
     link: 'https://omscs.gatech.edu/cs-8803-special-topics-cyber-physical-systems',
   },
   {
-    id: 'CS-8803-O11', // CS-6264
+    id: 'CS-6264',
     department: 'CS',
-    number: '8803-11',
+    number: '6264',
     name: 'Information Security Lab: System & Network Defenses',
     aliases: ['SND', 'ISND', 'ISLND'],
     foundational: true,
@@ -746,8 +746,8 @@ export const courses: PMO<Course>[] = [
     link: 'https://omscs.gatech.edu/inta-6450-data-analytics-and-security',
   },
   {
-    id: 'INTA-6742', // CSE-6742
-    department: 'INTA',
+    id: 'CSE-6742',
+    department: 'CSE',
     number: '6742',
     name: 'Modeling, Simulation & Military Gaming',
     aliases: [],
@@ -942,9 +942,9 @@ export const courses: PMO<Course>[] = [
     deprecated: false,
   },
   {
-    id: 'MGT-8833',
+    id: 'MGT-6727',
     department: 'MGT',
-    number: '8833',
+    number: '6727',
     name: 'Privacy for Professionals',
     aliases: [],
     foundational: false,
