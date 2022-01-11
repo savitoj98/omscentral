@@ -92,10 +92,6 @@ const Trends: React.FC<Props> = ({
                     title="Reviews"
                     field="count"
                     max={nextMultipleOf(max(series, 'count'), 10)}
-                    reference={divide(
-                      course.metric?.reviews.count,
-                      series.length,
-                    )}
                   />
                 </Grid>
               )}
