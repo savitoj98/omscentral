@@ -8,6 +8,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { paths, urls } from 'src/constants';
 
+import { AuthContext } from '../Auth';
 import { NotificationContext } from '../Notification';
 import { useStyles } from './Actions.styles';
 
@@ -46,6 +47,7 @@ const actions: Action[] = [
 const Actions: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
+  const auth = useContext(AuthContext);
   const notification = useContext(NotificationContext)!;
   const [open, setOpen] = useState<boolean>(false);
 
@@ -58,7 +60,7 @@ const Actions: React.FC = () => {
   };
 
   const handleClick = (action: Action) => () => {
-    if (action.auth) {
+    if (action.auth && !auth.authenticated) {
       notification.warning('You must login first to publish reviews.');
       return history.push(paths.login);
     }
