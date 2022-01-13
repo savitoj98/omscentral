@@ -117,11 +117,3 @@ const max = (
 
 const nextMultipleOf = (value: number, multipleOf: number): number =>
   (Math.floor(value / multipleOf) + 1) * multipleOf;
-
-const divide = (
-  numerator: number | undefined,
-  denominator: number,
-): number | undefined =>
-  numerator != null && denominator !== 0
-    ? Math.round((numerator / denominator) * 100) / 100
-    : undefined;
