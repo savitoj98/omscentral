@@ -37,7 +37,7 @@
     "dotenv-expand": "5.1.0",
     "express": "4.17.2",
     "express-rate-limit": "5.x",
-    "firebase-admin": "10.0.1",
+    "firebase-admin": "10.0.2",
     "graphql": "15.x",
     "graphql-middleware": "6.1.13",
     "graphql-shield": "7.5.0",
